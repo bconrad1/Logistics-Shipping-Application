@@ -1,8 +1,5 @@
 import common.DataValidationException;
 
-/**
- * Created by ericj on 2/6/2016.
- */
 public class ItemFactory {
 
     public static Item build(String id, int quantity) throws DataValidationException {

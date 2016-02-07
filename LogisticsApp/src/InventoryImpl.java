@@ -5,7 +5,7 @@ import java.util.*;
 
 public class InventoryImpl implements Inventory {
 
-    public HashMap<String,Item> inv;
+    private HashMap<String,Item> inv;
 
     InventoryImpl(Iterable<Item> invIn) throws DataValidationException{
         HashMap<String, Item> inventory = new HashMap<String, Item>();
@@ -43,7 +43,7 @@ public class InventoryImpl implements Inventory {
     }
 
     public HashMap<String, Item> getInventoryList(){
-
+        // for debugging only
         return inv;
 
     }
