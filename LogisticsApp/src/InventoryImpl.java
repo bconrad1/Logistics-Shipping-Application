@@ -3,7 +3,7 @@ import common.InventoryItemException;
 
 import java.util.*;
 
-public class InventoryImpl implements Inventory{
+public class InventoryImpl implements Inventory {
 
     private HashMap<String,Item> inv;
 
@@ -35,5 +35,10 @@ public class InventoryImpl implements Inventory{
 
         inv.get(itemId).setQuantity(newQuantity);
         return ItemFactory.build(itemId, quantity);
+    }
+
+    // Might not be needed
+    public boolean isEmpty(){
+        return inv.isEmpty();
     }
 }
