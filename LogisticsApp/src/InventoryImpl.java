@@ -5,7 +5,7 @@ import java.util.*;
 
 public class InventoryImpl implements Inventory {
 
-    private HashMap<String,Item> inv;
+    public HashMap<String,Item> inv;
 
     InventoryImpl(Iterable<Item> invIn) throws DataValidationException{
         HashMap<String, Item> inventory = new HashMap<String, Item>();
@@ -40,5 +40,11 @@ public class InventoryImpl implements Inventory {
     // Might not be needed
     public boolean isEmpty(){
         return inv.isEmpty();
+    }
+
+    public HashMap<String, Item> getInventoryList(){
+
+        return inv;
+
     }
 }

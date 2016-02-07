@@ -3,22 +3,22 @@
 <InventoryContent>
 
     <Facility id="Seattle, WA">
-        <Item>
+        <item>
             <id>ABC123</id>
             <quantity>45</quantity>
-        </Item>
-        <Item>
+        </item>
+        <item>
             <id>JBL3100</id>
             <quantity>52</quantity>
-        </Item>
-        <Item>
+        </item>
+        <item>
             <id>PL132-C</id>
             <quantity>4</quantity>
-        </Item>
-        <Item>
+        </item>
+        <item>
             <id>PU238</id>
             <quantity>60</quantity>
-        </Item>
+        </item>
     </Facility>
 
     <Facility id="San Francisco, CA">
