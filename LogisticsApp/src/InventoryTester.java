@@ -3,7 +3,7 @@ public class InventoryTester {
 
     public static void main(String[] args) {
 
-            InventoryDataLoader.load("inventory.xml");
+            InventoryService.init();
 
             for (String key : InventoryService.inventories.keySet()){
                 Inventory inv = InventoryService.inventories.get(key);

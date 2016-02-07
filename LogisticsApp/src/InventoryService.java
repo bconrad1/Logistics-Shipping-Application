@@ -24,5 +24,6 @@ public class InventoryService {
 
     }
 
+    public static void init() { InventoryDataLoader.load("inventory.xml"); }
 
 }
