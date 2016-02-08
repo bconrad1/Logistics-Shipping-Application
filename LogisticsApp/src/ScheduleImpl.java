@@ -1,0 +1,60 @@
+import common.DataValidationException;
+import common.SchedulingConflictException;
+
+public class ScheduleImpl implements Schedule {
+
+    private final int SCH_SIZE = 20;
+    private int[] sch = new int[SCH_SIZE]; // for now.
+    private int rate;
+    private int cost;
+
+    ScheduleImpl(int rateIn, int costIn) throws DataValidationException{
+        setRate(rateIn);
+        setCost(costIn);
+
+        // initialize the schedule
+        for(int i = 0; i < SCH_SIZE; i++){
+
+            sch[i] = this.rate;
+        }
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    private void setRate(int rate) throws DataValidationException {
+        if (rate < 0) throw new DataValidationException("rate must be >0");
+        this.rate = rate;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    private void setCost(int cost) throws DataValidationException {
+        if (cost < 0) throw new DataValidationException("cost must be >0");
+        this.cost = cost;
+    }
+
+    public int getAvailability(int day){
+        return sch[day];
+    }
+
+    public boolean hasAvailability(int day, int units) {
+        int avail = getAvailability(day);
+        int newAvail = avail - units;
+
+        return newAvail >= 0;
+
+    }
+
+    public void scheduleWork(int day, int units) throws SchedulingConflictException{
+
+        if(!hasAvailability(day,units)) throw new SchedulingConflictException("Not enough availability");
+
+        sch[day] -= units;
+
+    }
+
+}
