@@ -6,11 +6,9 @@ public class ScheduleImpl implements Schedule {
     private final int SCH_SIZE = 20;
     private int[] sch = new int[SCH_SIZE]; // for now.
     private int rate;
-    private int cost;
 
     ScheduleImpl(int rateIn, int costIn) throws DataValidationException{
         setRate(rateIn);
-        setCost(costIn);
 
         // initialize the schedule
         for(int i = 0; i < SCH_SIZE; i++){
@@ -26,15 +24,6 @@ public class ScheduleImpl implements Schedule {
     private void setRate(int rate) throws DataValidationException {
         if (rate < 0) throw new DataValidationException("rate must be >0");
         this.rate = rate;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    private void setCost(int cost) throws DataValidationException {
-        if (cost < 0) throw new DataValidationException("cost must be >0");
-        this.cost = cost;
     }
 
     public int getAvailability(int day){

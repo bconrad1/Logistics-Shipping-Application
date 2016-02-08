@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ScheduleContent>
+
+    <Facility loc="Seattle, WA">
+        <rate>8</rate>
+
+    </Facility>
+
+    <Facility loc="San Francisco, CA">
+        <rate>12</rate>
+
+    </Facility>
+
+    <Facility loc="Los Angeles, CA">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="Phoenix, AZ">
+        <rate>8</rate>
+
+    </Facility>
+
+    <Facility loc="Denver, CO">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="Santa Fe, NM">
+        <rate>8</rate>
+
+    </Facility>
+
+    <Facility loc="Fargo, ND">
+        <rate>8</rate>
+
+    </Facility>
+
+    <Facility loc="Austin, TX">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="St. Louis, MO">
+        <rate>12</rate>
+
+    </Facility>
+
+    <Facility loc="Chicago, IL">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="New Orleans, LA">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="Nashville, TN">
+        <rate>8</rate>
+
+    </Facility>
+
+    <Facility loc="Detroit, MI">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="Boston, MA">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="New York City, NY">
+        <rate>14</rate>
+
+    </Facility>
+
+    <Facility loc="Norfolk, VA">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="Atlanta, GA">
+        <rate>10</rate>
+
+    </Facility>
+
+    <Facility loc="Miami, FL">
+        <rate>12</rate>
+
+    </Facility>
+
+
+</ScheduleContent>
