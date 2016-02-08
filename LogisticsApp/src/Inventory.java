@@ -3,9 +3,6 @@ import common.InventoryItemException;
 
 import java.util.HashMap;
 
-/**
- * Created by ericj on 2/6/2016.
- */
 public interface Inventory {
 
     boolean hasItem(String itemId);
