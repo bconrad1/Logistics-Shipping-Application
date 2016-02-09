@@ -1,9 +1,8 @@
-/**
- * Created by Ben on 2/7/2016.
- */
+import common.DataValidationException;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws DataValidationException {
 
         FacilityManager runFac = new FacilityManager();
         runFac.loadFacilities();

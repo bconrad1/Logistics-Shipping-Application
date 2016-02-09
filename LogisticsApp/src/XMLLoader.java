@@ -1,11 +1,9 @@
-import java.util.HashMap;
+import common.DataValidationException;
 
-/**
- * Created by Ben on 2/6/2016.
- */
+
 public interface XMLLoader {
 
-    void readXML(String fileName);
+    void readXML(String fileName)throws DataValidationException;
 
 
 }

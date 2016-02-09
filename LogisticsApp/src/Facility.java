@@ -1,5 +1,7 @@
+import common.DataValidationException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 public interface Facility {
 
@@ -9,10 +11,10 @@ public interface Facility {
     String getFacilityInfo();
     ArrayList<LinkImpl> getConnections();
 
-    void setName(String name);
-    void setCost(int cost);
-    void setProductPD(int productPerDay);
-    void setConnections(ArrayList<LinkImpl> connections);
+    void setName(String name) throws DataValidationException;
+    void setCost(int cost)throws DataValidationException;
+    void setProductPD(int productPerDay)throws DataValidationException;
+    void setConnections(ArrayList<LinkImpl> connections)throws DataValidationException;
     void printConnections();
 
 }

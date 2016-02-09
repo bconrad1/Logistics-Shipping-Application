@@ -1,9 +1,9 @@
-/**
- * Created by Ben on 2/6/2016.
- */
+import common.DataValidationException;
+
+
 public class XMLFactory {
 
-    public void xmlFactory(String filename){
+    public void xmlFactory(String filename)throws DataValidationException{
 
         String name = filename.toLowerCase();
 
@@ -20,6 +20,8 @@ public class XMLFactory {
 
         }else if(filename.equals("facilityinvxml")|| filename.contains("facilityinvxml")){
 
+        }else{
+            System.out.println("You didn't specifiy the correct filename.");
         }
 
 
