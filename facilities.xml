@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Facilities>
+
+    <Facility Id="Seattle, WA">
+        <Name>Seattle, WA</Name>
+        <ProductPerDay>8</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Fargo, ND</City>
+            <Distance>1426</Distance>
+        </Link>
+        <Link>
+            <City>San Francisco, CA</City>
+            <Distance>808</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="San Francisco, CA">
+        <Name>San Francisco, CA</Name>
+        <ProductPerDay>12</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Seattle, WA</City>
+            <Distance>808</Distance>
+        </Link>
+        <Link>
+            <City>Denver, CO</City>
+            <Distance>1249</Distance>
+        </Link>
+        <Link>
+            <City>Los Angeles, CA</City>
+            <Distance>382</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="Los Angeles, CA">
+        <Name>Los Angeles, CA</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>San Francisco, CA</City>
+            <Distance>382</Distance>
+        </Link>
+        <Link>
+            <City>Phoenix, AZ</City>
+            <Distance>372</Distance>
+        </Link>
+
+    </Facility>
+
+
+
+    <Facility Id="Phoenix, AZ">
+        <Name>Phoenix, AZ</Name>
+        <ProductPerDay>8</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Los Angeles, CA</City>
+            <Distance>372</Distance>
+        </Link>
+        <Link>
+            <City>Santa Fe, NM</City>
+            <Distance>480</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="Denver, CO">
+        <Name>Denver, CO</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>San Francisco, CA</City>
+            <Distance>1249</Distance>
+        </Link>
+        <Link>
+            <City>Santa Fe, NM</City>
+            <Distance>392</Distance>
+        </Link>
+        <Link>
+            <City>Fargo, ND</City>
+            <Distance>889</Distance>
+        </Link>
+        <Link>
+            <City>St. Louis, MO</City>
+            <Distance>851</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="Santa Fe, NM">
+        <Name>Santa Fe, NM</Name>
+        <ProductPerDay>8</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Phoenix, AZ</City>
+            <Distance>480</Distance>
+        </Link>
+        <Link>
+            <City>Denver, CO</City>
+            <Distance>392</Distance>
+        </Link>
+        <Link>
+            <City>St. Louis, MO</City>
+            <Distance>1032</Distance>
+        </Link>
+        <Link>
+            <City>Austin, TX</City>
+            <Distance>688</Distance>
+        </Link>
+    </Facility>
+
+
+    <Facility Id="Fargo, ND">
+        <Name>Fargo, ND</Name>
+        <ProductPerDay>8</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Seattle, WA</City>
+            <Distance>1426</Distance>
+        </Link>
+        <Link>
+            <City>Denver, CO</City>
+            <Distance>889</Distance>
+        </Link>
+        <Link>
+            <City>Chicago, IL</City>
+            <Distance>643</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="Austin, TX">
+        <Name>Austin, TX</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Santa Fe, NM</City>
+            <Distance>688</Distance>
+        </Link>
+        <Link>
+            <City>St. Louis, MO</City>
+            <Distance>825</Distance>
+        </Link>
+        <Link>
+            <City>New Orleans, LA</City>
+            <Distance>512</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="St. Louis, MO">
+        <Name>St. Louis, MO</Name>
+        <ProductPerDay>12</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Chicago, IL</City>
+            <Distance>297</Distance>
+        </Link>
+        <Link>
+            <City>Nashville, TN</City>
+            <Distance>309</Distance>
+        </Link>
+        <Link>
+            <City>Austin, TX</City>
+            <Distance>825</Distance>
+        </Link>
+        <Link>
+            <City>Santa Fe, NM</City>
+            <Distance>1032</Distance>
+        </Link>
+        <Link>
+            <City>Denver, CO</City>
+            <Distance>851</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="Chicago, IL">
+        <Name>Chicago, IL</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Fargo, ND</City>
+            <Distance>643</Distance>
+        </Link>
+        <Link>
+            <City>St. Louis, MO</City>
+            <Distance>297</Distance>
+        </Link>
+        <Link>
+            <City>New York City, NY</City>
+            <Distance>790</Distance>
+        </Link>
+        <Link>
+            <City>Detroit, MI</City>
+            <Distance>282</Distance>
+        </Link>
+    </Facility>
+
+
+    <Facility Id="New Orleans, LA">
+        <Name>New Orleans, LA</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Austin, TX</City>
+            <Distance>512</Distance>
+        </Link>
+        <Link>
+            <City>Nashville, TN</City>
+            <Distance>532</Distance>
+        </Link>
+        <Link>
+            <City>Atlanta, GA</City>
+            <Distance>469</Distance>
+        </Link>
+        <Link>
+            <City>Miami, FL</City>
+            <Distance>864</Distance>
+        </Link>
+    </Facility>
+
+
+    <Facility Id="Nashville, TN">
+        <Name>Nashville, TN</Name>
+        <ProductPerDay>8</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>St. Louis, MO</City>
+            <Distance>309</Distance>
+        </Link>
+        <Link>
+            <City>New Orleans, LA</City>
+            <Distance>532</Distance>
+        </Link>
+        <Link>
+            <City>Norfolk, VA</City>
+            <Distance>706</Distance>
+        </Link>
+
+    </Facility>
+
+
+    <Facility Id="Detroit, MI">
+        <Name>Detroit, MI</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Chicago, IL</City>
+            <Distance>282</Distance>
+        </Link>
+        <Link>
+            <City>New York City, NY</City>
+            <Distance>614</Distance>
+        </Link>
+        <Link>
+            <City>Boston, MA</City>
+            <Distance>719</Distance>
+        </Link>
+
+    </Facility>
+
+
+    <Facility Id="Boston, MA">
+        <Name>Boston, MA</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Detroit, MI</City>
+            <Distance>719</Distance>
+        </Link>
+        <Link>
+            <City>New York City, NY</City>
+            <Distance>215</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="New York City, NY">
+        <Name>New York City, NY</Name>
+        <ProductPerDay>14</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Boston, MA</City>
+            <Distance>215</Distance>
+        </Link>
+        <Link>
+            <City>Detroit, MI</City>
+            <Distance>614</Distance>
+        </Link>
+        <Link>
+            <City>Chicago, IL</City>
+            <Distance>790</Distance>
+        </Link>
+        <Link>
+            <City>Norfolk, VA</City>
+            <Distance>363</Distance>
+        </Link>
+    </Facility>
+
+
+    <Facility Id="Norfolk, VA">
+        <Name>Norfolk, VA</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>New York City, NY</City>
+            <Distance>363</Distance>
+        </Link>
+        <Link>
+            <City>Nashville, TN</City>
+            <Distance>706</Distance>
+        </Link>
+        <Link>
+            <City>Atlanta, GA</City>
+            <Distance>566</Distance>
+        </Link>
+    </Facility>
+
+
+
+    <Facility Id="Atlanta, GA">
+        <Name>Atlanta, GA</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Norfolk, VA</City>
+            <Distance>566</Distance>
+        </Link>
+        <Link>
+            <City>New Orleans, LA</City>
+            <Distance>469</Distance>
+        </Link>
+        <Link>
+            <City>Miami, FL</City>
+            <Distance>663</Distance>
+        </Link>
+    </Facility>
+
+
+    <Facility Id="Miami, FL">
+        <Name>Miami, FL</Name>
+        <ProductPerDay>12</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Atlanta, GA</City>
+            <Distance>663</Distance>
+        </Link>
+        <Link>
+            <City>New Orleans, LA</City>
+            <Distance>864</Distance>
+        </Link>
+
+    </Facility>
+
+</Facilities>
