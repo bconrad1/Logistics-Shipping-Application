@@ -2,6 +2,8 @@ import common.DataValidationException;
 import common.SchedulingConflictException;
 
 import java.util.HashMap;
+import java.util.Set;
+
 public class ScheduleService {
 
     private static ScheduleService instance = null;
@@ -9,7 +11,6 @@ public class ScheduleService {
 
     private ScheduleService(){
         schedules = new HashMap<>();
-        // Add data loader here
     }
 
     public void addSchedule(String facName, Schedule sch) throws DataValidationException {
@@ -21,7 +22,10 @@ public class ScheduleService {
     }
 
     public static ScheduleService getInstance(){
-        if (instance == null) instance = new ScheduleService();
+        if (instance == null) {
+            instance = new ScheduleService();
+            ScheduleDataLoader.load("schedule.xml");
+        }
         return instance;
     }
 
@@ -29,10 +33,16 @@ public class ScheduleService {
         return schedules.get(facName);
     }
 
-    public boolean hasAvailability(String facName, int day, int quantity){
+    public boolean hasAvailabilityOnDay(String facName, int day, int quantity){
         Schedule sch = schedules.get(facName);
 
         return sch.hasAvailability(day, quantity);
+    }
+
+    public int howMuchAvailabilityOnDay(String facName, int day){
+        Schedule sch = schedules.get(facName);
+
+        return sch.getAvailability(day);
     }
 
     public void scheduleWork(String facName, int day, int units){
@@ -48,5 +58,7 @@ public class ScheduleService {
         }
     }
 
-
+    public Set<String> getFacilityNames(){
+        return schedules.keySet();
+    }
 }

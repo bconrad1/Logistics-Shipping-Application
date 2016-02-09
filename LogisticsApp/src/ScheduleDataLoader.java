@@ -17,8 +17,7 @@ import org.xml.sax.SAXException;
 
 public class ScheduleDataLoader {
 
-    // WIP!
-    /*
+
     public static void load(String filename) {
 
 
@@ -52,28 +51,13 @@ public class ScheduleDataLoader {
                 //System.out.println(storeId);
 
                 Element elem = (Element) facilities.item(i);
-
-                List<Item> itemList = new ArrayList<>();
-
-                NodeList itemsInFac = elem.getElementsByTagName("item");
-
-                for (int j = 0; j < itemsInFac.getLength(); j++) {
-
-                    elem = (Element) itemsInFac.item(j);
-
-                    String itemid = elem.getElementsByTagName("id").item(0).getTextContent();
-                    int itemQ = new Integer(elem.getElementsByTagName("quantity").item(0).getTextContent());
-
-                    //System.out.println(itemid);
-                    //System.out.println(itemQ);
-
-                    Item testItem = ItemFactory.build(itemid, itemQ);
-                    itemList.add(testItem);
-                }
+                int rate = new Integer(elem.getElementsByTagName("rate").item(0).getTextContent());
 
 
-                Inventory inv = new InventoryImpl(itemList);
-                InventoryService.addInventory(facilityName, inv);
+
+                ScheduleService schedules = ScheduleService.getInstance();
+                Schedule sch = new ScheduleImpl(rate);
+                schedules.addSchedule(facilityName, sch);
 
             }
 
@@ -81,8 +65,5 @@ public class ScheduleDataLoader {
             e.printStackTrace();
         }
     }
-
-
-    */
 
 }

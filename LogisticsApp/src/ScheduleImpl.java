@@ -1,13 +1,15 @@
 import common.DataValidationException;
 import common.SchedulingConflictException;
 
+import java.util.Arrays;
+
 public class ScheduleImpl implements Schedule {
 
     private final int SCH_SIZE = 20;
     private int[] sch = new int[SCH_SIZE]; // for now.
     private int rate;
 
-    ScheduleImpl(int rateIn, int costIn) throws DataValidationException{
+    ScheduleImpl(int rateIn) throws DataValidationException{
         setRate(rateIn);
 
         // initialize the schedule
@@ -46,4 +48,12 @@ public class ScheduleImpl implements Schedule {
 
     }
 
+    @Override
+    public String toString() {
+        return "ScheduleImpl{" +
+                "rate=" + rate +
+                //"SCH_SIZE=" + SCH_SIZE +
+                ", sch=" + Arrays.toString(sch) +
+                '}';
+    }
 }
