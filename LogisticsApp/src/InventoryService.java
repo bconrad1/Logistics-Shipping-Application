@@ -1,29 +1,60 @@
 import common.DataValidationException;
+import common.InventoryItemException;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class InventoryService {
 
-    public static HashMap<String, Inventory> inventories = new HashMap<String, Inventory>();
+    private static InventoryService instance = null;
+    private HashMap<String, Inventory> inventories;
 
-    public static void addInventory(String facilityName, Inventory inv) throws DataValidationException{
+    private InventoryService(){
+        inventories = new HashMap<>();
+    }
+
+    public static InventoryService getInstance(){
+        if (instance == null){
+            instance = new InventoryService();
+            InventoryDataLoader.load("inventory.xml");
+        }
+
+        return instance;
+    }
+
+    public void addInventory(String facName, Inventory inv) throws DataValidationException{
         if (inv.isEmpty()) throw new DataValidationException("Cannot add an empty inventory");
-        inventories.put(facilityName, inv);
+        inventories.put(facName, inv);
     }
 
-    public static Inventory getInventory(String facilityName) throws DataValidationException {
-        if (!inventories.containsKey(facilityName)) throw new DataValidationException("Facility does not exist by that name");
+    public Inventory getInventory(String facName)  {
+        if (!inventories.containsKey(facName)) System.out.println("Inventory does not exist by that name: " + facName);
 
-        return inventories.get(facilityName);
+        return inventories.get(facName);
     }
 
-    public static boolean facilityHasItem(String facilityName, String itemId) throws DataValidationException {
-        if (!inventories.containsKey(facilityName)) throw new DataValidationException("Facility does not exist by that name");
+    public boolean facilityHasItem(String facName, String itemId)  {
 
-        return inventories.get(facilityName).hasItem(itemId);
+        return getInventory(facName).hasItem(itemId);
 
     }
 
-    public static void init() { InventoryDataLoader.load("inventory.xml"); }
+    public void getItemsFromFacility(String facName, String itemId, int quantity){
+
+        Inventory inv = getInventory(facName);
+
+        try {
+            inv.grabItem(itemId, quantity);
+        }
+        catch (DataValidationException | InventoryItemException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
+    }
+
+    public Set<String> getFacilityNames(){
+        return inventories.keySet();
+    }
 
 }

@@ -68,9 +68,9 @@ public class InventoryDataLoader {
                     itemList.add(testItem);
                 }
 
-
+                InventoryService invs = InventoryService.getInstance();
                 Inventory inv = new InventoryImpl(itemList);
-                InventoryService.addInventory(facilityName, inv);
+                invs.addInventory(facilityName, inv);
 
             }
 
