@@ -1,10 +1,12 @@
+package facility;
+
 import common.DataValidationException;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FacilityServer {
+public class FacilityService {
 
 
     public static void main(String[] args) {
@@ -77,10 +79,10 @@ public class FacilityServer {
         finalOut.append("DIRECT LINKS:  ");
 
 
-        ArrayList<LinkImpl> connections = facility.getConnections();
+        ArrayList<Link> connections = facility.getConnections();
 
 
-        for(LinkImpl l: connections){
+        for(Link l: connections){
 
             double totalDays = l.getDistance()/400;
             DecimalFormat df = new DecimalFormat("#.##");

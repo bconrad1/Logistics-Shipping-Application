@@ -1,3 +1,5 @@
+package inventory;
+
 import common.DataValidationException;
 import common.InventoryItemException;
 

@@ -1,5 +1,5 @@
+package facility;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
     /* The authors of this work have released all rights to it and placed it

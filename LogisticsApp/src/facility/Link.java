@@ -1,3 +1,5 @@
+package facility;
+
 import common.DataValidationException;
 
 public interface Link {

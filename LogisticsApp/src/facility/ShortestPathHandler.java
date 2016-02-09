@@ -1,9 +1,9 @@
+package facility;
 
 import common.DataValidationException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ShortestPathHandler {
 

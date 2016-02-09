@@ -1,3 +1,5 @@
+package inventory;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,17 +17,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class ScheduleDataLoader {
-
+public class InventoryDataLoader {
 
     public static void load(String filename) {
-
 
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            File xml = new File(filename);
+            File xml = new File("inventory.xml");
 
             Document doc = db.parse(xml);
 
@@ -46,18 +46,33 @@ public class ScheduleDataLoader {
 
                 // Get a node attribute
                 NamedNodeMap aMap = facilities.item(i).getAttributes();
-                String facilityName = aMap.getNamedItem("loc").getNodeValue();
+                String facilityName = aMap.getNamedItem("id").getNodeValue();
 
                 //System.out.println(storeId);
 
                 Element elem = (Element) facilities.item(i);
-                int rate = new Integer(elem.getElementsByTagName("rate").item(0).getTextContent());
 
+                List<Item> itemList = new ArrayList<>();
 
+                NodeList itemsInFac = elem.getElementsByTagName("item");
 
-                ScheduleService schedules = ScheduleService.getInstance();
-                Schedule sch = new ScheduleImpl(rate);
-                schedules.addSchedule(facilityName, sch);
+                for (int j = 0; j < itemsInFac.getLength(); j++) {
+
+                    elem = (Element) itemsInFac.item(j);
+
+                    String itemid = elem.getElementsByTagName("id").item(0).getTextContent();
+                    int itemQ = new Integer(elem.getElementsByTagName("quantity").item(0).getTextContent());
+
+                    //System.out.println(itemid);
+                    //System.out.println(itemQ);
+
+                    Item testItem = ItemFactory.build(itemid, itemQ);
+                    itemList.add(testItem);
+                }
+
+                InventoryService invs = InventoryService.getInstance();
+                Inventory inv = new InventoryImpl(itemList);
+                invs.addInventory(facilityName, inv);
 
             }
 
@@ -65,5 +80,4 @@ public class ScheduleDataLoader {
             e.printStackTrace();
         }
     }
-
 }

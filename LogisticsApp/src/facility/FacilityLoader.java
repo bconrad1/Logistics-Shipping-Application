@@ -1,3 +1,5 @@
+package facility;
+
 import common.DataValidationException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class FacilityLoader implements XMLLoader{
+public class FacilityLoader {
     HashMap<String,Facility> facilities = new HashMap<>();
 
     private String name;
@@ -36,7 +38,7 @@ public class FacilityLoader implements XMLLoader{
 
             File xml = new File(fileName);
             if (!xml.exists()) {
-                System.err.println("**** FacilityLoader File '" + fileName + "' cannot be found");
+                System.err.println("**** facility.FacilityLoader File '" + fileName + "' cannot be found");
                 System.exit(-1);
             }
 
@@ -52,7 +54,7 @@ public class FacilityLoader implements XMLLoader{
                 }
 
                 String entryName = storeEntries.item(i).getNodeName();
-                if (!entryName.equals("Facility")) {
+                if (!entryName.equals("facility.Facility")) {
                     System.err.println("Unexpected node found: " + entryName);
                     return;
                 }
@@ -72,8 +74,8 @@ public class FacilityLoader implements XMLLoader{
 
 
                 ArrayList<String> links = new ArrayList<>();
-                ArrayList<LinkImpl> connections = new ArrayList<>();
-                NodeList cityList = elem.getElementsByTagName("Link");
+                ArrayList<Link> connections = new ArrayList<>();
+                NodeList cityList = elem.getElementsByTagName("facility.Link");
 
                 for (int j = 0; j < cityList.getLength(); j++) {
                     if (cityList.item(j).getNodeType() == Node.TEXT_NODE) {
@@ -81,7 +83,7 @@ public class FacilityLoader implements XMLLoader{
                     }
 
                     entryName = cityList.item(j).getNodeName();
-                    if (!entryName.equals("Link")) {
+                    if (!entryName.equals("facility.Link")) {
                         System.err.println("Unexpected node found: " + entryName);
                         return;
                     }
@@ -94,14 +96,14 @@ public class FacilityLoader implements XMLLoader{
 
                     links.add("City: " + city + " --- " + "Distance: " + distance);
 
-                    LinkImpl connection = new LinkImpl(city, cityDistance);
+                    Link connection = new LinkImpl(city, cityDistance);
 
                     connections.add(connection);
                     //System.out.println("The Connection is : "+connection.getCity());
                 }
 
-                // Here I would create a Store object using the data I just loaded from the FacilityLoader
-               // System.out.println("Facility: " + facilityName + "ID: " + facilityId + "COST: " + costPerDay + "PPD: " + productPerDay + "\n" + links + "\n");
+                // Here I would create a Store object using the data I just loaded from the facility.FacilityLoader
+               // System.out.println("facility.Facility: " + facilityName + "ID: " + facilityId + "COST: " + costPerDay + "PPD: " + productPerDay + "\n" + links + "\n");
 
                 FacilityFactory facility = new FacilityFactory();
 
@@ -112,12 +114,12 @@ public class FacilityLoader implements XMLLoader{
 
 
 
-                //Create new Facility.
+                //Create new facility.Facility.
                 Facility newFac = facility.createFacility(facilityName,cost,product,connections);
 
                 //Check if the value is in the HashMap already.
 
-                if(facilities.containsKey(facilityName) == false){
+                if(!facilities.containsKey(facilityName)){
                     facilities.put(facilityName,newFac);
                 }
 

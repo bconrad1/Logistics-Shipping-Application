@@ -1,8 +1,8 @@
+package facility;
+
 import common.DataValidationException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class FacilityImpl implements Facility {
 

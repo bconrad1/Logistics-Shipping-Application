@@ -1,3 +1,5 @@
+package inventory;
+
 import common.DataValidationException;
 
 public class ItemImpl implements Item {

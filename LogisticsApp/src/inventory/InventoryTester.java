@@ -1,3 +1,4 @@
+package inventory;
 
 public class InventoryTester {
 
@@ -7,7 +8,7 @@ public class InventoryTester {
 
             for (String key : invs.getFacilityNames()){
                 Inventory inv = invs.getInventory(key);
-                System.out.println(" ===== Facility: " + key + " ==========");
+                System.out.println(" ===== facility.Facility: " + key + " ==========");
 
                 for (String k : inv.getInventoryList().keySet()) {
                     Item itm = inv.getInventoryList().get(k);

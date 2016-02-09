@@ -1,3 +1,5 @@
+package inventory;
+
 import common.DataValidationException;
 
 public class ItemFactory {
@@ -21,6 +23,6 @@ public class ItemFactory {
         else if (id.equals("MM35P")) return new ItemImpl(id, 1950, quantity);
         else if (id.equals("SN-241-L")) return new ItemImpl(id, 620, quantity);
 
-        else throw new DataValidationException("Item of that id not found");
+        else throw new DataValidationException("inventory.Item of that id not found");
     }
 }

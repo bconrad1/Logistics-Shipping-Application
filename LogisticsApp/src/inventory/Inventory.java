@@ -1,3 +1,5 @@
+package inventory;
+
 import common.DataValidationException;
 import common.InventoryItemException;
 
@@ -9,6 +11,6 @@ public interface Inventory {
     void grabItem(String itemId, int quantity) throws  InventoryItemException, DataValidationException;
     int getInventoryQuantity(String itemId) throws  InventoryItemException;
     boolean isEmpty();
-    public HashMap<String, Item> getInventoryList();
+    HashMap<String, Item> getInventoryList();
 
 }

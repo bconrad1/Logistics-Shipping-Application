@@ -1,3 +1,5 @@
+package inventory;
+
 import common.DataValidationException;
 import common.InventoryItemException;
 
@@ -8,7 +10,7 @@ public class InventoryImpl implements Inventory {
     private HashMap<String,Item> inv;
 
     InventoryImpl(Iterable<Item> invIn) throws DataValidationException{
-        HashMap<String, Item> inventory = new HashMap<String, Item>();
+        HashMap<String, Item> inventory = new HashMap<>();
         for (Item i : invIn) {
             if (inventory.containsKey(i.getId())) throw new DataValidationException("Error loading inventory");
             inventory.put(i.getId(), i);
