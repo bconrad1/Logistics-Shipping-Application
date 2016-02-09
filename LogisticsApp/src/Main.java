@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args)throws DataValidationException {
 
-        FacilityManager runFac = new FacilityManager();
+        FacilityServer runFac = new FacilityServer();
         runFac.loadFacilities();
     }
 }

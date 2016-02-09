@@ -59,12 +59,6 @@ public class FacilityImpl implements Facility {
        return connections;
 
     }
-    public String getFacilityInfo(){
 
-
-
-    return null;
-
-    }
 
 }
