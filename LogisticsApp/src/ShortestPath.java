@@ -90,7 +90,7 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
                 vertices.put(key,temp);
             }
 
-            ArrayList<LinkImpl> links;
+            ArrayList<Link> links;
 
             //Adding edges.
             for(String key : facilities.keySet()){
@@ -115,6 +115,8 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
 
 
             ArrayList<Vertex> path = getShortestPathTo(endCity);
+            System.out.println(path);
+
             return path;
             //System.out.println(finalPrint);
 

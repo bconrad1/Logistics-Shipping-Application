@@ -9,12 +9,8 @@ public interface Facility {
     int getCost();
     int getProductPerDay();
     String getFacilityInfo();
-    ArrayList<LinkImpl> getConnections();
+    ArrayList<Link> getConnections();
 
-    void setName(String name) throws DataValidationException;
-    void setCost(int cost)throws DataValidationException;
-    void setProductPD(int productPerDay)throws DataValidationException;
-    void setConnections(ArrayList<LinkImpl> connections)throws DataValidationException;
     void printConnections();
 
 }

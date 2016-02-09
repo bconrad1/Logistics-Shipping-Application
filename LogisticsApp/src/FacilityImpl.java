@@ -9,10 +9,10 @@ public class FacilityImpl implements Facility {
     private String name;
     private int cost;
     private int productPD;
-    private ArrayList<LinkImpl> connections;
+    private ArrayList<Link> connections;
 
 
-    FacilityImpl(String facName, int costPerDay, int productPerDay, ArrayList<LinkImpl> connections )throws DataValidationException {
+    FacilityImpl(String facName, int costPerDay, int productPerDay, ArrayList<Link> connections )throws DataValidationException {
 
         setName(facName);
         setCost(costPerDay);
@@ -20,7 +20,7 @@ public class FacilityImpl implements Facility {
         setConnections(connections);
 
     }
-    public void setName(String name)throws DataValidationException {
+    private void setName(String name)throws DataValidationException {
         this.name = name;
     }
 
@@ -33,7 +33,7 @@ public class FacilityImpl implements Facility {
         this.productPD = productPerDay;
     }
 
-    public void setConnections(ArrayList<LinkImpl> connections)throws DataValidationException {
+    private void setConnections(ArrayList<Link> connections)throws DataValidationException {
         this.connections = connections;
     }
     public String getName(){
@@ -49,22 +49,21 @@ public class FacilityImpl implements Facility {
     }
 
     public void printConnections(){
-        for(LinkImpl i: connections){
+        for(Link i: connections){
             System.out.println(i.getCity());
         }
 
     }
 
-    public ArrayList<LinkImpl> getConnections(){
+    public ArrayList<Link> getConnections(){
        return connections;
 
     }
     public String getFacilityInfo(){
 
-        //Print out facility info. Format later
-        return "TEMP";
 
 
+    return null;
 
     }
 

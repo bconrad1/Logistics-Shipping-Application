@@ -1,3 +1,4 @@
+import common.DataValidationException;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -126,7 +127,7 @@ public class FacilityLoader implements XMLLoader{
 
 
 
-        } catch (ParserConfigurationException | SAXException | IOException | DOMException e) {
+        } catch (ParserConfigurationException | SAXException | IOException | DOMException | DataValidationException e) {
             e.printStackTrace();
         }
     }

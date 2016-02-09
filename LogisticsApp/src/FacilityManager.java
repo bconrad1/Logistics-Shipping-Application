@@ -16,12 +16,10 @@ public class FacilityManager {
         FacilityLoader file = new FacilityLoader(facFile);
         HashMap<String, Facility> cities = file.returnFacilities();
 
-        //ArrayList<Vertex> shortestPath = ShortestPathHandler.returnSP("Boston, MA","Chicago, IL", cities);
-        //String printout = spOut(shortestPath);
+        ArrayList<Vertex> shortestPath = ShortestPathHandler.returnSP("Boston, MA","Chicago, IL", cities);
 
 
-
-
+        String printout = spOut(shortestPath);
 
     }
 
@@ -62,14 +60,11 @@ public class FacilityManager {
 
         finalPrint.append(totalDistance + " / (8 hours per day * 50mph) = " +totalDays+"\n");
 
-
-
         return finalPrint.toString();
 
 
 
     }
-
 
     public void facilityOutput(Facility facility){
 
