@@ -14,9 +14,16 @@ public class ShortestPathHandler {
     public static String returnSP(String start, String end, ArrayList<Facility> facilities)throws DataValidationException {
 
         String spFinal = spOut(ShortestPath.returnSP(start,end,facilities));
-
-
         return spFinal;
+    }
+
+
+
+    public static double totalDistance(String start, String end, ArrayList<Facility> facilities){
+        ArrayList<Vertex> total = ShortestPath.returnSP(start,end,facilities);
+        Vertex last = total.get(total.size()-1);
+        double totalDistance = last.minDistance;
+        return totalDistance;
     }
 
     public static String spOut(ArrayList<Vertex> path){

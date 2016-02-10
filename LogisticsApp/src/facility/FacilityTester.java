@@ -37,6 +37,12 @@ public class FacilityTester {
         System.out.println(sP);
     }
 
+    public static double getTotalDistance(String start, String end){
+        FacilityService fs = FacilityService.getInstance();
+        double total = ShortestPathHandler.totalDistance(start, end, fs.getFacilities());
+        return total;
+    }
+
     public static void main(String[] args)throws DataValidationException {
 
 
@@ -52,5 +58,6 @@ public class FacilityTester {
         getSP("Atlanta, GA",  "St. Louis, MO");
         getSP("Seattle, WA", "Nashville, TN");
 
+        System.out.println(getTotalDistance("Santa Fe, NM","Chicago, IL"));
     }
 }
