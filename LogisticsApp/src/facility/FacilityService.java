@@ -20,7 +20,7 @@ public class FacilityService {
     public static FacilityService getInstance(){
         if(instance == null){
             instance = new FacilityService();
-            FacilityLoader.load("FacilitiesXML.xml");
+            FacilityLoader.load("facilities.xml");
         }
         return instance;
     }
@@ -28,7 +28,7 @@ public class FacilityService {
     public void addFacility(String name, Facility fac)throws DataValidationException{
 
         if(!facilities.containsKey(name)){
-            facilities.put(name,fac);
+            facilities.put(name, fac);
         }
 
     }
@@ -45,13 +45,22 @@ public class FacilityService {
         return facilities.keySet();
     }
 
-    public String getFacilityInfo(String name){
+    public void getFacilityInfo(String name){
 
         Facility fac = facilities.get(name);
         System.out.println(fac);
-        return null;
+    }
 
+    public double getTotalDistance(String start, String end){
+        return ShortestPathHandler.totalDistance(start, end, getFacilities());
+    }
 
+    public void printShortestPath(String start, String end){
+        try {
+            String sp = ShortestPathHandler.returnSP(start, end, getFacilities());
+            System.out.println(sp);
+
+        } catch (DataValidationException e) { e.printStackTrace(); }
     }
 
 

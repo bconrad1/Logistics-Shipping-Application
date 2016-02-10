@@ -3,8 +3,6 @@ package facility;
 
 import common.DataValidationException;
 
-
-
 public class FacilityTester {
 
     public static void printFacilities(){
@@ -17,11 +15,7 @@ public class FacilityTester {
 
     }
 
-    public static void printFacilityInfo(String name)throws DataValidationException{
-        FacilityService fs = FacilityService.getInstance();
 
-        fs.getFacilityInfo(name);
-    }
 
     public static void printAllFacilityInfo(){
         FacilityService fs = FacilityService.getInstance();
@@ -31,33 +25,21 @@ public class FacilityTester {
 
     }
 
-    public static void getSP(String start, String end)throws DataValidationException{
-        FacilityService fs = FacilityService.getInstance();
-        String sP= ShortestPathHandler.returnSP(start, end, fs.getFacilities());
-        System.out.println(sP);
-    }
-
-    public static double getTotalDistance(String start, String end){
-        FacilityService fs = FacilityService.getInstance();
-        double total = ShortestPathHandler.totalDistance(start, end, fs.getFacilities());
-        return total;
-    }
-
     public static void main(String[] args)throws DataValidationException {
 
-
+        // init the facility Service in main here
+        FacilityService fs = FacilityService.getInstance();
         String facName = "Phoenix, AZ";
 
+        fs.getFacilityInfo(facName);
+        //printAllFacilityInfo();
 
-        //printFacilityInfo(facName);
-        printAllFacilityInfo();
+        //System.out.println(System.lineSeparator()+System.lineSeparator()+System.lineSeparator());
 
-        System.out.println(System.lineSeparator()+System.lineSeparator()+System.lineSeparator());
+        fs.printShortestPath("Santa Fe, NM", "Chicago, IL");
+        fs.printShortestPath("Atlanta, GA", "St. Louis, MO");
+        fs.printShortestPath("Seattle, WA", "Nashville, TN");
 
-        getSP("Santa Fe, NM","Chicago, IL");
-        getSP("Atlanta, GA",  "St. Louis, MO");
-        getSP("Seattle, WA", "Nashville, TN");
-
-        System.out.println(getTotalDistance("Santa Fe, NM","Chicago, IL"));
+        System.out.println(fs.getTotalDistance("Santa Fe, NM", "Chicago, IL"));
     }
 }
