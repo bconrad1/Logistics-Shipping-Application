@@ -2,96 +2,62 @@ package facility;
 
 import common.DataValidationException;
 
+import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Set;
 
 public class FacilityService {
 
+    private static FacilityService instance = null;
+    private HashMap<String, Facility> facilities;
 
-    public static void main(String[] args) {
-
-    }
-    public void loadFacilities()throws DataValidationException{
-        String facFile = "FacilitiesXML.xml";
-
-        FacilityLoader file = new FacilityLoader(facFile);
-        HashMap<String, Facility> cities = file.returnFacilities();
-
-        ArrayList<Vertex> shortestPath = ShortestPathHandler.returnSP("Boston, MA","Chicago, IL", cities);
+    private FacilityService(){facilities = new HashMap<>();}
 
 
-        String printout = spOut(shortestPath);
-
+    public static FacilityService getInstance(){
+        if(instance == null){
+            instance = new FacilityService();
+            FacilityLoader.load("FacilitiesXML.xml");
+        }
+        return instance;
     }
 
+    public void addFacility(String name, Facility fac)throws DataValidationException{
 
-    public String spOut(ArrayList<Vertex> path){
-
-        Vertex end = path.get(path.size()-1);
-        double totalDistance = end.minDistance;
-
-        StringBuilder finalPrint = new StringBuilder();
-        String startCity = path.get(0).name;
-        String endCity = end.name;
-        finalPrint.append(startCity + " to "+endCity+":\n\n");
-
-
-        for (int i =0; i<path.size(); i++){
-
-
-
-            String city = path.get(i).name;
-
-
-
-            if(i!=path.size()-1){
-                finalPrint.append(city + "--> ");
-            }else{
-                finalPrint.append(city + " = "+ totalDistance + " Miles\n");
-            }
-
+        if(!facilities.containsKey(name)){
+            facilities.put(name,fac);
         }
 
-
-        //Since its a static 8hours * 50mph it equals 400 miles a day.
-
-        double totalDays = totalDistance/400;
-        DecimalFormat df = new DecimalFormat("#.##");
-        totalDays = Double.valueOf(df.format(totalDays));
-
-        finalPrint.append(totalDistance + " / (8 hours per day * 50mph) = " +totalDays+"\n");
-
-        return finalPrint.toString();
-
-
-
     }
 
-    public void facilityOutput(Facility facility){
-
-        StringBuilder finalOut = new StringBuilder();
-
-        String CRLF = "\n\n";
-
-        //Name of Current City
-        finalOut.append(facility.getName()+ CRLF);
-        finalOut.append("DIRECT LINKS:  ");
-
-
-        ArrayList<Link> connections = facility.getConnections();
-
-
-        for(Link l: connections){
-
-            double totalDays = l.getDistance()/400;
-            DecimalFormat df = new DecimalFormat("#.##");
-            totalDays = Double.valueOf(df.format(totalDays));
-
-            finalOut.append(l.getCity() + " ("+totalDays+"d); ");
-
+    public ArrayList<Facility> getFacilities(){
+        ArrayList<Facility> facs = new ArrayList<>();
+        for(Facility f: facilities.values()){
+            facs.add(f);
         }
-        finalOut.append("\n\n");
-        System.out.println(finalOut.toString());
+       return facs;
     }
+
+    public Set<String> getFacilityNames(){
+        return facilities.keySet();
+    }
+
+    public String getFacilityInfo(String name){
+
+        Facility fac = facilities.get(name);
+        System.out.println(fac);
+        return null;
+
+
+    }
+
+
+
+
+
+
+
 }

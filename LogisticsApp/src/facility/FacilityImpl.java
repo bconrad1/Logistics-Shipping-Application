@@ -2,6 +2,7 @@ package facility;
 
 import common.DataValidationException;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class FacilityImpl implements Facility {
@@ -59,6 +60,28 @@ public class FacilityImpl implements Facility {
        return connections;
 
     }
+    @Override
+    public String toString() {
+        String str = "";
+        str+= name +"\n";
+        str+= "DIRECT LINKS: ";
+
+
+
+        for (Link l: connections){
+
+            double totalDays = l.getDistance()/400;
+            DecimalFormat df = new DecimalFormat("#.##");
+            totalDays = Double.valueOf(df.format(totalDays));
+
+            str+=l.getCity() +" ("
+                   + totalDays
+                   +") ";
+        }
+        str+="\n";
+        return str;
+    }
+
 
 
 }

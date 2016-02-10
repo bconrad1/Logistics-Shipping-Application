@@ -79,26 +79,26 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
         }
 
 
-        public static ArrayList<Vertex> returnSP(String start, String end, HashMap<String,Facility> facilities ){
+        public static ArrayList<Vertex> returnSP(String start, String end, Collection<Facility> facilities ){
 
             HashMap<String,Vertex> vertices = new HashMap<>();
 
 
            //Adding Vertices
-            for (String key : facilities.keySet()) {
-                Vertex temp = new Vertex(key);
-                vertices.put(key,temp);
+            for(Facility f: facilities){
+                Vertex temp = new Vertex(f.getName());
+                vertices.put(f.getName(),temp);
             }
 
             ArrayList<Link> links;
 
             //Adding edges.
-            for(String key : facilities.keySet()){
+            for(Facility f : facilities){
 
-                Vertex currentVtex = vertices.get(key);
+                Vertex currentVtex = vertices.get(f.getName());
 
 
-                links = facilities.get(key).getConnections();
+                links = f.getConnections();
                 currentVtex.adjacencies = new ArrayList<>();
                 for(Link l: links){
 
@@ -115,7 +115,7 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
 
 
             ArrayList<Vertex> path = getShortestPathTo(endCity);
-            System.out.println(path);
+
 
             return path;
             //System.out.println(finalPrint);

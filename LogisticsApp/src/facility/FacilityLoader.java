@@ -14,20 +14,11 @@ import java.util.HashMap;
 
 
 public class FacilityLoader {
-    HashMap<String,Facility> facilities = new HashMap<>();
-
-    private String name;
 
 
-    FacilityLoader(String name){
 
-        readXML(name);
-        Facility temp = facilities.get("Chicago, IL");
-        //System.out.println(temp.getCost());
 
-    }
-
-    public void readXML(String fileName) {
+    public static void load(String fileName) {
 
 
 
@@ -48,13 +39,14 @@ public class FacilityLoader {
             NodeList storeEntries = doc.getDocumentElement().getChildNodes();
 
 
+
             for (int i = 0; i < storeEntries.getLength(); i++) {
                 if (storeEntries.item(i).getNodeType() == Node.TEXT_NODE) {
                     continue;
                 }
 
                 String entryName = storeEntries.item(i).getNodeName();
-                if (!entryName.equals("facility.Facility")) {
+                if (!entryName.equals("Facility")) {
                     System.err.println("Unexpected node found: " + entryName);
                     return;
                 }
@@ -73,9 +65,9 @@ public class FacilityLoader {
                 String costPerDay = elem.getElementsByTagName("CostPerDay").item(0).getTextContent();
 
 
-                ArrayList<String> links = new ArrayList<>();
+                //ArrayList<String> links = new ArrayList<>();
                 ArrayList<Link> connections = new ArrayList<>();
-                NodeList cityList = elem.getElementsByTagName("facility.Link");
+                NodeList cityList = elem.getElementsByTagName("Link");
 
                 for (int j = 0; j < cityList.getLength(); j++) {
                     if (cityList.item(j).getNodeType() == Node.TEXT_NODE) {
@@ -83,7 +75,7 @@ public class FacilityLoader {
                     }
 
                     entryName = cityList.item(j).getNodeName();
-                    if (!entryName.equals("facility.Link")) {
+                    if (!entryName.equals("Link")) {
                         System.err.println("Unexpected node found: " + entryName);
                         return;
                     }
@@ -94,34 +86,32 @@ public class FacilityLoader {
                     String distance = elem.getElementsByTagName("Distance").item(0).getTextContent();
                     double cityDistance = Integer.parseInt(distance);
 
-                    links.add("City: " + city + " --- " + "Distance: " + distance);
+                    //links.add("City: " + city + " --- " + "Distance: " + distance);
 
                     Link connection = new LinkImpl(city, cityDistance);
-
                     connections.add(connection);
+
+
                     //System.out.println("The Connection is : "+connection.getCity());
                 }
 
                 // Here I would create a Store object using the data I just loaded from the facility.FacilityLoader
                // System.out.println("facility.Facility: " + facilityName + "ID: " + facilityId + "COST: " + costPerDay + "PPD: " + productPerDay + "\n" + links + "\n");
 
-                FacilityFactory facility = new FacilityFactory();
-
 
 
                 int cost = Integer.parseInt(costPerDay);
                 int product = Integer.parseInt(productPerDay);
 
-
-
-                //Create new facility.Facility.
-                Facility newFac = facility.createFacility(facilityName,cost,product,connections);
-
                 //Check if the value is in the HashMap already.
 
-                if(!facilities.containsKey(facilityName)){
-                    facilities.put(facilityName,newFac);
-                }
+
+
+
+                FacilityService fs = FacilityService.getInstance();
+                Facility fac = new FacilityImpl(facilityName,cost,product,connections);
+
+                fs.addFacility(facilityName,fac);
 
 
 
@@ -135,11 +125,7 @@ public class FacilityLoader {
     }
 
 
-    HashMap<String,Facility> returnFacilities(){
 
-        return facilities;
-
-    }
 
 }
 
