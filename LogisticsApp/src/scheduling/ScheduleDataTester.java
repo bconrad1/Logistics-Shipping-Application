@@ -1,4 +1,4 @@
-package sch;
+package scheduling;
 
 public class ScheduleDataTester {
 

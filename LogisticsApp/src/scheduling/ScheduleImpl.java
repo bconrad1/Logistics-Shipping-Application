@@ -1,4 +1,4 @@
-package sch;
+package scheduling;
 
 import common.DataValidationException;
 import common.SchedulingConflictException;
