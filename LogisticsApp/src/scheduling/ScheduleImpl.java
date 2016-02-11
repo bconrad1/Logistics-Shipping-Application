@@ -67,8 +67,9 @@ public class ScheduleImpl implements Schedule {
 
         for (int day = 0; day <= 20; day++ ){
             int avail = getAvailability(day);
-            if (rate > 10) {
+            if (rate >= 10) {
                 str += avail + " ";
+                if (day > 9) str += " ";
 
             }
             else {

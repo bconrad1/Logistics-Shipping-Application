@@ -43,7 +43,19 @@ public class ItemImpl implements Item {
 
     @Override
     public String toString() {
-        return getId() + "       " + getQuantity();
+        String str = "\t" + getId();
+
+        int DIST = 11;
+        int spacesNeeded = DIST - getId().length();
+
+        for (int i = 0; i < spacesNeeded; i++) {
+            str += " ";
+        }
+
+
+        str += getQuantity();
+
+        return str;
     }
 
     public static void main(String[] args) {

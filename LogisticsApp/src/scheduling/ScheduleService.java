@@ -65,8 +65,8 @@ public class ScheduleService {
     }
 
 
-    public void getScheduleInfo(String facName) {
-        System.out.println(schedules.get(facName));
+    public String getScheduleInfo(String facName) {
+        return schedules.get(facName).toString();
     }
 
 

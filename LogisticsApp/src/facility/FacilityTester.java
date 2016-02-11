@@ -36,9 +36,9 @@ public class FacilityTester {
 
         //System.out.println(System.lineSeparator()+System.lineSeparator()+System.lineSeparator());
 
-        fs.printShortestPath("Santa Fe, NM", "Chicago, IL");
-        fs.printShortestPath("Atlanta, GA", "St. Louis, MO");
-        fs.printShortestPath("Seattle, WA", "Nashville, TN");
+        fs.displayShortestPath("Santa Fe, NM", "Chicago, IL");
+        fs.displayShortestPath("Atlanta, GA", "St. Louis, MO");
+        fs.displayShortestPath("Seattle, WA", "Nashville, TN");
 
         System.out.println(fs.getTotalDistance("Santa Fe, NM", "Chicago, IL"));
     }

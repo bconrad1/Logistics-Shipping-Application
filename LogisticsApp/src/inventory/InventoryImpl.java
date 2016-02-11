@@ -61,7 +61,7 @@ public class InventoryImpl implements Inventory {
         String str = "";
 
         str += "Active Inventory: " + BR;
-        str += "Item ID    Quantity" + BR;
+        str += "\tItem ID    Quantity" + BR;
 
         for (String itemId: inv.keySet()){
 

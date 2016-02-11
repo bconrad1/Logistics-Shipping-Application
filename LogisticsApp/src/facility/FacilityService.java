@@ -45,22 +45,22 @@ public class FacilityService {
         return facilities.keySet();
     }
 
-    public void getFacilityInfo(String name){
+    public String getFacilityInfo(String name){
 
-        Facility fac = facilities.get(name);
-        System.out.println(fac);
+        return facilities.get(name).toString();
     }
 
     public double getTotalDistance(String start, String end){
         return ShortestPathHandler.totalDistance(start, end, getFacilities());
     }
 
-    public void printShortestPath(String start, String end){
+    public String displayShortestPath(String start, String end){
         try {
-            String sp = ShortestPathHandler.returnSP(start, end, getFacilities());
-            System.out.println(sp);
+            return ShortestPathHandler.returnSP(start, end, getFacilities());
+            //System.out.println(sp);
 
-        } catch (DataValidationException e) { e.printStackTrace(); }
+        } catch (DataValidationException e) { e.printStackTrace(); return null;}
+
     }
 
 
