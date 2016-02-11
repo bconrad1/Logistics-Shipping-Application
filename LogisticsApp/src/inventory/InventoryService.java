@@ -59,4 +59,8 @@ public class InventoryService {
         return inventories.keySet();
     }
 
+    public void getInventoryInfo(String facName) {
+        System.out.println(getInventory(facName));
+    }
+
 }

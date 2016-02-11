@@ -12,5 +12,4 @@ public interface Inventory {
     int getInventoryQuantity(String itemId) throws  InventoryItemException;
     boolean isEmpty();
     HashMap<String, Item> getInventoryList();
-
 }

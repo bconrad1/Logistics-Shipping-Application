@@ -11,7 +11,7 @@ public class ScheduleService {
     private static ScheduleService instance = null;
     private HashMap<String, Schedule> schedules;
 
-    private ScheduleService(){
+    private ScheduleService() {
         schedules = new HashMap<>();
     }
 
@@ -23,7 +23,7 @@ public class ScheduleService {
 
     }
 
-    public static ScheduleService getInstance(){
+    public static ScheduleService getInstance() {
         if (instance == null) {
             instance = new ScheduleService();
             ScheduleDataLoader.load("schedule.xml");
@@ -35,19 +35,19 @@ public class ScheduleService {
         return schedules.get(facName);
     }
 
-    public boolean hasAvailabilityOnDay(String facName, int day, int quantity){
+    public boolean hasAvailabilityOnDay(String facName, int day, int quantity) {
         Schedule sch = schedules.get(facName);
 
         return sch.hasAvailability(day, quantity);
     }
 
-    public int howMuchAvailabilityOnDay(String facName, int day){
+    public int howMuchAvailabilityOnDay(String facName, int day) {
         Schedule sch = schedules.get(facName);
 
         return sch.getAvailability(day);
     }
 
-    public void scheduleWork(String facName, int day, int units){
+    public void scheduleWork(String facName, int day, int units) {
 
         Schedule sch = schedules.get(facName);
 
@@ -55,12 +55,20 @@ public class ScheduleService {
             sch.scheduleWork(day, units);
 
         } catch (SchedulingConflictException e) {
-            System.out.println("No Availability for " + facName + " on " + day );
+            System.out.println("No Availability for " + facName + " on " + day);
             e.printStackTrace();
         }
     }
 
-    public Set<String> getFacilityNames(){
+    public Set<String> getFacilityNames() {
         return schedules.keySet();
     }
+
+
+    public void getScheduleInfo(String facName) {
+        System.out.println(schedules.get(facName));
+    }
+
+
+
 }

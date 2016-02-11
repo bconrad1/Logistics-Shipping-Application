@@ -38,7 +38,7 @@ public class InventoryImpl implements Inventory {
 
     // returns an item and reduces inventory
     public void grabItem(String itemId, int quantity) throws InventoryItemException, DataValidationException {
-        if (!hasEnoughInventory(itemId,quantity)) throw new InventoryItemException("Not enough of " + itemId);
+        if (!hasEnoughInventory(itemId, quantity)) throw new InventoryItemException("Not enough of " + itemId);
 
         int newQuantity = getInventoryQuantity(itemId) - quantity;
 
@@ -57,13 +57,79 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public String toString() {
+        final String BR = System.lineSeparator();
         String str = "";
-        for (String key: inv.keySet()){
-            Item item = inv.get(key);
-            str += item + "\n";
+
+        str += "Active Inventory: " + BR;
+        str += "Item ID    Quantity" + BR;
+
+        for (String itemId: inv.keySet()){
+
+            Item item = inv.get(itemId);
+
+            try {
+                if (getInventoryQuantity(itemId) != 0){
+                    // Items with 0 quantity will be reported in
+                    // getDepletedItems()
+                    str += item + BR;
+                }
+
+
+            } catch (InventoryItemException e) {e.printStackTrace();}
 
         }
 
+        final String descHtml = "<strong>Depleated (Used-up) Inventory: </strong>";
+        final String desc = "Depleted (Used-up) Inventory: ";
+        str += BR + desc;
+
+        str += getDepletedItems();
+
         return str;
+    }
+
+    private String getDepletedItems() {
+        String depleted = "";
+        boolean flag = false;
+
+        for (String itemId : inv.keySet()){
+
+            try {
+                int itemQuantity = getInventoryQuantity(itemId);
+
+                if (itemQuantity == 0) {
+
+                    if (flag) depleted += ", ";
+                    depleted += itemId;
+                    flag = true;
+
+                }
+
+            } catch (InventoryItemException e) { e.printStackTrace(); }
+
+        }
+
+        return depleted;
+
+
+    }
+
+    public static void main(String[] args) {
+        try {
+            Item i1 = ItemFactory.build("ABC123", 100);
+            Item i2 = ItemFactory.build("XTP202", 200);
+            Item i3 = ItemFactory.build("JBL3100", 0);
+
+            List<Item> ia = new ArrayList<>();
+
+            ia.add(i1);
+            ia.add(i2);
+            ia.add(i3);
+
+            Inventory i = new InventoryImpl(ia);
+
+            System.out.println(i);
+
+        } catch (DataValidationException e) {e.printStackTrace();}
     }
 }

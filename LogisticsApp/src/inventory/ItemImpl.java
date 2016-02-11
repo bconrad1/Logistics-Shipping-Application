@@ -43,10 +43,15 @@ public class ItemImpl implements Item {
 
     @Override
     public String toString() {
-        return "ItemImpl{" +
-                "id='" + id + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
+        return getId() + "       " + getQuantity();
+    }
+
+    public static void main(String[] args) {
+        try {
+            Item i = ItemFactory.build("PU238", 195);
+
+            System.out.println(i);
+        }catch (DataValidationException e) {e.printStackTrace();}
+
     }
 }
