@@ -25,7 +25,7 @@ public class FacilityImpl implements Facility {
         this.name = name;
     }
 
-    public void setCost(int cost)throws DataValidationException {
+    private void setCost(int cost)throws DataValidationException {
         this.cost = cost;
     }
 
@@ -67,9 +67,10 @@ public class FacilityImpl implements Facility {
         str+= "DIRECT LINKS: ";
 
 
-
+        //Scan the links for each city.
         for (Link l: connections){
 
+            //8 hours * 50mph = totaldistance/400 for total days
             double totalDays = l.getDistance()/400;
             DecimalFormat df = new DecimalFormat("#.##");
             totalDays = Double.valueOf(df.format(totalDays));

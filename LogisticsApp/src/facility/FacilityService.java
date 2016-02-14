@@ -17,6 +17,7 @@ public class FacilityService {
     private FacilityService(){facilities = new HashMap<>();}
 
 
+    //If no instance of singleton  FacilityService exists, create one. Then return it regardless. Also loads XML upon creation.
     public static FacilityService getInstance(){
         if(instance == null){
             instance = new FacilityService();
@@ -25,6 +26,7 @@ public class FacilityService {
         return instance;
     }
 
+    //Add facility to hashmap.
     public void addFacility(String name, Facility fac)throws DataValidationException{
 
         if(!facilities.containsKey(name)){
@@ -33,6 +35,7 @@ public class FacilityService {
 
     }
 
+    //Return list of facilities.
     public ArrayList<Facility> getFacilities(){
         ArrayList<Facility> facs = new ArrayList<>();
         for(Facility f: facilities.values()){
@@ -41,6 +44,7 @@ public class FacilityService {
        return facs;
     }
 
+    //Return single facility
     public Set<String> getFacilityNames(){
         return facilities.keySet();
     }
@@ -50,10 +54,12 @@ public class FacilityService {
         return facilities.get(name).toString();
     }
 
+    //Get the total distance for the shortest path.
     public double getTotalDistance(String start, String end){
         return ShortestPathHandler.totalDistance(start, end, getFacilities());
     }
 
+    //Return the formatted string for shortest path.
     public String displayShortestPath(String start, String end){
         try {
             return ShortestPathHandler.returnSP(start, end, getFacilities());

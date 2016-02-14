@@ -5,6 +5,15 @@ import common.DataValidationException;
 
 public class FacilityTester {
 
+
+
+    /*Simple test for Facilites/Shortest Path.
+
+     Tests retrieval of information, shortest path, and Total Distance.
+
+     */
+
+    //Print out the facilities using the Overidden toString for formatting.
     public static void printFacilities(){
 
         FacilityService fs = FacilityService.getInstance();

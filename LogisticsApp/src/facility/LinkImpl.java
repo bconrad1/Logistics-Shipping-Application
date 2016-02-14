@@ -3,6 +3,9 @@ package facility;
 import common.DataValidationException;
 
 
+/*
+Simple LinkImpl for each facility link. Name and distance. Can be easily changed if more info needs to be added.
+ */
 public class LinkImpl implements Link {
 
     private String name;
@@ -14,11 +17,11 @@ public class LinkImpl implements Link {
     }
 
 
-    public void setCity(String name)throws DataValidationException{
+    private void setCity(String name)throws DataValidationException{
         this.name = name;
     }
 
-    public void setDistance(double distance)throws DataValidationException{
+    private void setDistance(double distance)throws DataValidationException{
         this.distance = distance;
     }
 

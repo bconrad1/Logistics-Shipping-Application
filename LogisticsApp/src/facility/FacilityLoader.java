@@ -86,9 +86,10 @@ public class FacilityLoader {
                     String distance = elem.getElementsByTagName("Distance").item(0).getTextContent();
                     double cityDistance = Integer.parseInt(distance);
 
-                    //links.add("City: " + city + " --- " + "Distance: " + distance);
 
+                    //Create new connection for each link in the XML.
                     Link connection = new LinkImpl(city, cityDistance);
+                    //Add connection to Arraylist for each city.
                     connections.add(connection);
 
 
@@ -96,21 +97,21 @@ public class FacilityLoader {
                 }
 
                 // Here I would create a Store object using the data I just loaded from the facility.FacilityLoader
-               // System.out.println("facility.Facility: " + facilityName + "ID: " + facilityId + "COST: " + costPerDay + "PPD: " + productPerDay + "\n" + links + "\n");
-
+                // System.out.println("facility.Facility: " + facilityName + "ID: " + facilityId + "COST: " + costPerDay + "PPD: " + productPerDay + "\n" + links + "\n");
 
 
                 int cost = Integer.parseInt(costPerDay);
                 int product = Integer.parseInt(productPerDay);
 
-                //Check if the value is in the HashMap already.
 
 
 
 
+                //Using the facilityService singleton, I create a new facility for each city.
                 FacilityService fs = FacilityService.getInstance();
                 Facility fac = new FacilityImpl(facilityName,cost,product,connections);
 
+                //Then using the facade, I use the service to add the city to a collection.
                 fs.addFacility(facilityName,fac);
 
 

@@ -14,6 +14,7 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
 */
 
 
+    //Vertex representing facility.
     class Vertex implements Comparable<Vertex>
     {
         public final String name;
@@ -29,7 +30,7 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
 
     }
 
-
+    //Edge represents path to Link.
     class Edge
     {
         public final Vertex target;
@@ -68,6 +69,7 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
             }
         }
 
+        //Returns a list of the shortest path.
         public static ArrayList<Vertex> getShortestPathTo(Vertex target)
         {
             ArrayList<Vertex> path = new ArrayList<>();
@@ -79,6 +81,8 @@ Retrieved from: http://en.literateprograms.org/Dijkstra's_algorithm_(Java)?oldid
         }
 
 
+        //Before computing path, Facilities and Connections must be added in order to create an accurate representation
+        // of all connections and facilities.
         public static ArrayList<Vertex> returnSP(String start, String end, Collection<Facility> facilities ){
 
             HashMap<String,Vertex> vertices = new HashMap<>();

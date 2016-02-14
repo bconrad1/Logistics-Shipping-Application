@@ -18,7 +18,7 @@ public class ShortestPathHandler {
     }
 
 
-
+    //Prints the total distance for shortest path.
     public static double totalDistance(String start, String end, ArrayList<Facility> facilities){
         ArrayList<Vertex> total = ShortestPath.returnSP(start,end,facilities);
         Vertex last = total.get(total.size()-1);
@@ -28,9 +28,13 @@ public class ShortestPathHandler {
 
     public static String spOut(ArrayList<Vertex> path){
 
+        //Get the shortest path last node.
         Vertex end = path.get(path.size()-1);
+        //Use that node to get stored distance.
         double totalDistance = end.minDistance;
 
+
+        //Formatting the print statement for shortest path.
         StringBuilder finalPrint = new StringBuilder();
         String startCity = path.get(0).name;
         String endCity = end.name;
