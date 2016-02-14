@@ -41,12 +41,25 @@ public class ScheduleService {
         return sch.hasAvailability(day, quantity);
     }
 
+    /**
+     * Function that returns how many days are available for a facility on a given day.
+     * @param facName facility location associated with the desired schedule (e.g. Chicago, IL)
+     * @param day the day that available is needed for
+     * @return how many packages are available for processing on the given day.
+     */
     public int howMuchAvailabilityOnDay(String facName, int day) {
         Schedule sch = schedules.get(facName);
 
         return sch.getAvailability(day);
     }
 
+    /**
+     * Schedules work for a facility at a given day. If there is not enough days for the amount of work
+     * scheduled, an error message is printed out.
+     * @param facName facility location associated with the desired schedule (e.g. Chicago, IL)
+     * @param day day the work should be scheduled on
+     * @param units how many units should be scheduled
+     */
     public void scheduleWork(String facName, int day, int units) {
 
         Schedule sch = schedules.get(facName);

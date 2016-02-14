@@ -36,7 +36,13 @@ public class InventoryImpl implements Inventory {
         return currentQuantity > quantity;
     }
 
-    // returns an item and reduces inventory
+    /**
+     * Reduces an item's quantity in the inventory.
+     * @param itemId item id to be reduced
+     * @param quantity how much to reduce inventory by.
+     * @throws InventoryItemException if there is not enough inventory
+     * @throws DataValidationException if new quantity is <0
+     */
     public void grabItem(String itemId, int quantity) throws InventoryItemException, DataValidationException {
         if (!hasEnoughInventory(itemId, quantity)) throw new InventoryItemException("Not enough of " + itemId);
 
@@ -45,7 +51,6 @@ public class InventoryImpl implements Inventory {
         inv.get(itemId).setQuantity(newQuantity);
     }
 
-    // Might not be needed
     public boolean isEmpty(){
         return inv.isEmpty();
     }
@@ -79,7 +84,7 @@ public class InventoryImpl implements Inventory {
 
         }
 
-        final String descHtml = "<strong>Depleated (Used-up) Inventory: </strong>";
+        //final String descHtml = "<strong>Depleated (Used-up) Inventory: </strong>";
         final String desc = "Depleted (Used-up) Inventory: ";
         str += BR + desc;
 
@@ -88,6 +93,10 @@ public class InventoryImpl implements Inventory {
         return str;
     }
 
+    /**
+     * A helper function which returns all items where inventory is 0.
+     * @return A string containing each depleted inventory item.
+     */
     private String getDepletedItems() {
         String depleted = "";
         boolean flag = false;

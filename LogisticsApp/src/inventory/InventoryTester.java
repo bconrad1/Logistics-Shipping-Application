@@ -1,12 +1,15 @@
 package inventory;
 
+import common.DataValidationException;
+
 public class InventoryTester {
 
     public static void printAllInventories() {
 
-            InventoryService invs = InventoryService.getInstance();
+        InventoryService invs = InventoryService.getInstance();
 
-            for (String key : invs.getFacilityNames()){
+        try {
+            for (String key : invs.getFacilityNames()) {
                 Inventory inv = invs.getInventory(key);
                 System.out.println(" ===== facility.Facility: " + key + " ==========");
 
@@ -17,22 +20,27 @@ public class InventoryTester {
                 }
                 System.out.println();
             }
+        } catch (DataValidationException e) {e.printStackTrace(); }
     }
 
-    public static void printInventory(String facName){
+    public static void printInventory(String facName) {
 
         InventoryService invs = InventoryService.getInstance();
 
-        Inventory inv = invs.getInventory(facName);
+        try {
+            Inventory inv = invs.getInventory(facName);
 
-        System.out.println(inv);
+
+            System.out.println(inv);
+        } catch (DataValidationException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
 
         // Uncomment to see all inventories:
         //printAllInventories();
-
 
 
         String facName = "Phoenix, AZ";

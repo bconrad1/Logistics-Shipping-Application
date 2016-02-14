@@ -22,10 +22,11 @@ public class InventoryDataLoader {
     public static void load(String filename) {
 
         try {
+            InventoryService invs = InventoryService.getInstance();
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
 
-            File xml = new File("inventory.xml");
+            File xml = new File(filename);
 
             Document doc = db.parse(xml);
 
@@ -70,7 +71,8 @@ public class InventoryDataLoader {
                     itemList.add(testItem);
                 }
 
-                InventoryService invs = InventoryService.getInstance();
+
+                // Load the newly created inventory object into the inventory service's instance
                 Inventory inv = new InventoryImpl(itemList);
                 invs.addInventory(facilityName, inv);
 
