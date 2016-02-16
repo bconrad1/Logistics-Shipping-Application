@@ -1,4 +1,6 @@
 se450.iml
 .idea/
 out/
-/LogisticsApp/LogisticasApp.iml
+/LogisticsApp/LogisticsApp.iml
+XMLReader.java
+XMLExampleDoc.xml
