@@ -44,5 +44,7 @@ public class ScheduleDataTester {
         System.out.println(ss.hasAvailabilityOnDay(facName, 0, 6));
         System.out.println(ss.hasAvailabilityOnDay(facName, 0, 1));
 
+        System.out.println(ss.getProcessEndDay(facName, 0, 16));
+
     }
 }

@@ -73,6 +73,12 @@ public class ScheduleService {
         }
     }
 
+    public int getProcessEndDay(String facName, int startDay, int units){
+        Schedule s = getSchedule(facName);
+
+        return s.getProcessingEndDay(startDay,units);
+    }
+
     public Set<String> getFacilityNames() {
         return schedules.keySet();
     }

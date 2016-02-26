@@ -50,6 +50,17 @@ public class ScheduleImpl implements Schedule {
 
     }
 
+    public int getProcessingEndDay(int startDay, int units){
+        int day = startDay;
+        while (units > 0){
+            int avail = getAvailability(day);
+            if (avail > units ) break; // this is the day it will end
+            units -= avail;
+            day++;
+        }
+        return day;
+    }
+
     @Override
     public String toString() {
         final String BR = System.lineSeparator();

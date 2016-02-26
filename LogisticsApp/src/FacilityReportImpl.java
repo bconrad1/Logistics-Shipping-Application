@@ -2,7 +2,7 @@ import common.DataValidationException;
 
 
 
-public class FacilityReportImpl implements FacilityReport, Comparable<FacilityReportImpl>{
+public class FacilityReportImpl implements FacilityReport, Comparable<FacilityReport>{
 
     private String facName;
     private int numItems;
@@ -10,13 +10,12 @@ public class FacilityReportImpl implements FacilityReport, Comparable<FacilityRe
     private int travelTime;
     private int arrivalDay;
 
-    FacilityReportImpl(String name, int numItems, int endProc, int travelTime, int arrivalDay) throws DataValidationException{
-        setFacName(name);
+    FacilityReportImpl(String facName, int numItems, int endProc, int travelTime) throws DataValidationException{
+        setFacName(facName);
         setnumItems(numItems);
         setEndProc(endProc);
         setTravelTime(travelTime);
-        setArrivalDay(arrivalDay);
-
+        setArrivalDay(travelTime + endProc);
     }
 
 
@@ -55,9 +54,9 @@ public class FacilityReportImpl implements FacilityReport, Comparable<FacilityRe
 
     public int getArrivalDay(){return arrivalDay;}
 
-    public int compareTo(FacilityReportImpl other) {
+    public int compareTo(FacilityReport other) {
 
-        return Integer.compare(this.arrivalDay, other.arrivalDay);
+        return Integer.compare(this.arrivalDay, other.getArrivalDay());
 
     }
 
