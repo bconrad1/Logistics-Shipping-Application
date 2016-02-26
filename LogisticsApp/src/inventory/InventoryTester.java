@@ -2,6 +2,8 @@ package inventory;
 
 import common.DataValidationException;
 
+import java.util.List;
+
 public class InventoryTester {
 
     public static void printAllInventories() {
@@ -50,7 +52,7 @@ public class InventoryTester {
         InventoryService invs = InventoryService.getInstance();
 
         String itemId = "RX100-3";
-        final int quantity = 10;
+        final int quantity = 18;
 
         invs.getItemsFromFacility(facName, itemId, quantity);
 
@@ -59,6 +61,11 @@ public class InventoryTester {
         // Exception properly thrown here
         //invs.getItemsFromFacility(facName, itemId, quantity);
         //printInventory(facName);
+
+        List<String> testFacHaveItems = invs.getFacilitiesWithItem("ABC123");
+
+        System.out.println("\nHere are the Facilities with ABC123:");
+        testFacHaveItems.forEach(System.out::println);
 
 
     }

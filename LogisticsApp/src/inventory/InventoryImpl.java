@@ -33,7 +33,7 @@ public class InventoryImpl implements Inventory {
 
         int currentQuantity = getInventoryQuantity(itemId);
 
-        return currentQuantity > quantity;
+        return currentQuantity >= quantity;
     }
 
     /**

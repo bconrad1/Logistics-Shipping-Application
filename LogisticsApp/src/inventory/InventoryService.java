@@ -3,7 +3,9 @@ package inventory;
 import common.DataValidationException;
 import common.InventoryItemException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class InventoryService {
@@ -104,6 +106,17 @@ public class InventoryService {
             e.printStackTrace();
             return "";
         }
+    }
+
+    public List<String> getFacilitiesWithItem(String itemId){
+        List<String> result = new ArrayList<>();
+
+        // Maybe use stream + collect if feeling wild
+        for (String key : getFacilityNames()) {
+            if (facilityHasItem(key,itemId)) result.add(key);
+        }
+
+        return result;
     }
 
 }
