@@ -24,8 +24,6 @@ public class FacilityTester {
 
     }
 
-
-
     public static void printAllFacilityInfo(){
         FacilityService fs = FacilityService.getInstance();
         for(String k: fs.getFacilityNames()){
@@ -45,10 +43,15 @@ public class FacilityTester {
 
         //System.out.println(System.lineSeparator()+System.lineSeparator()+System.lineSeparator());
 
-        fs.displayShortestPath("Santa Fe, NM", "Chicago, IL");
-        fs.displayShortestPath("Atlanta, GA", "St. Louis, MO");
-        fs.displayShortestPath("Seattle, WA", "Nashville, TN");
+        System.out.println(fs.displayShortestPath("Santa Fe, NM", "Chicago, IL"));
+        System.out.println(fs.displayShortestPath("Atlanta, GA", "St. Louis, MO"));
+        System.out.println(fs.displayShortestPath("Seattle, WA", "Nashville, TN"));
 
         System.out.println(fs.getTotalDistance("Santa Fe, NM", "Chicago, IL"));
+
+
+        System.out.println(fs.getDaysTraveled("Santa Fe, NM", "Chicago, IL"));
+
+
     }
 }

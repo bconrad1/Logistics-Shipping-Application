@@ -59,6 +59,16 @@ public class FacilityService {
         return ShortestPathHandler.totalDistance(start, end, getFacilities());
     }
 
+    public int getDaysTraveled(String start, String end){
+
+        // Get the total distance and divide by 400
+        // and round up with ceil
+        Double d = Math.ceil(getTotalDistance(start,end) / 400);
+
+        // return the int value
+        return d.intValue();
+    }
+
     //Return the formatted string for shortest path.
     public String displayShortestPath(String start, String end){
         try {

@@ -1,3 +1,4 @@
+package reports;
 
 public interface FacilityReport {
 
