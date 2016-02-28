@@ -155,7 +155,7 @@ public class OrderProcessor {
 
         reportHead += "Order #1" + EOL;
         reportHead += "* Order Id:      " + o.getId() + EOL; // Order Id:     <Order Id>
-        reportHead += "* Order Time:     Day " + o.getTime() + EOL; // Order Time:    Day <getTime)
+        reportHead += "* Order Time:    Day " + o.getTime() + EOL; // Order Time:    Day <getTime)
         reportHead += "* Destination:   " + o.getDest() + EOL;
 
         List<Item> itemList = o.getItems();
