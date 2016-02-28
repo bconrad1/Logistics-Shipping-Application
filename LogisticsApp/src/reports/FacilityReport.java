@@ -14,6 +14,8 @@ public interface FacilityReport {
 
     int getArrivalDay();
 
+    int compareTo(FacilityReport fr);
+
 
 
 

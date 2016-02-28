@@ -12,7 +12,7 @@ public class FacilityReportImpl implements FacilityReport, Comparable<FacilityRe
     private int travelTime;
     private int arrivalDay;
 
-    FacilityReportImpl(String facName, int numItems, int endProc, int travelTime) throws DataValidationException{
+    public FacilityReportImpl(String facName, int numItems, int endProc, int travelTime) throws DataValidationException{
         setFacName(facName);
         setnumItems(numItems);
         setEndProc(endProc);

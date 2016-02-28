@@ -119,4 +119,14 @@ public class InventoryService {
         return result;
     }
 
+    public int getInventoryQuantity(String facName, String itemId){
+        try {
+            return getInventory(facName).getInventoryQuantity(itemId);
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
 }
