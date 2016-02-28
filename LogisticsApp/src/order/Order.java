@@ -9,5 +9,6 @@ public interface Order {
     int getTime();
     List<Item> getItems();
     String getDest();
+    String getId();
 
 }

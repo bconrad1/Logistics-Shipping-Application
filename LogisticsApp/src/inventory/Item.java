@@ -8,4 +8,5 @@ public interface Item {
     String getId();
     int getQuantity();
     void setQuantity(int quantity) throws DataValidationException;
+    int getValue();
 }

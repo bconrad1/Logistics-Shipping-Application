@@ -17,8 +17,9 @@ public class OrderProcessor {
         }
     }
 
-    public static void processOrder(Order order){
+    public static String processOrder(Order order){
 
+        String resPrintout = "";
         String orderDest = order.getDest();
         List<Item> orderItems = order.getItems();
         InventoryService is = InventoryService.getInstance();
@@ -52,6 +53,7 @@ public class OrderProcessor {
 
                 try {
                     FacilityReportImpl fr = new FacilityReportImpl(fac, invQuantity, endProc, travelTime);
+                    // Add the newly created facility report to the list
                     facReports.add(fr);
                 } catch (Throwable e) {e.printStackTrace(); }
             }
@@ -59,12 +61,90 @@ public class OrderProcessor {
             // Sort the facility reports (by arrival Day)
             Collections.sort(facReports);
 
-            // Go through each facility report until the order
-            // is fufilled, and build a result report
+            if (!canFufilOrder(facReports,i)) return "Not enough inventory for Order: " ;
 
-            System.out.println(facWithItem);
+            // Process the item (which lowers inventory) and get the results for formatting.
+            ItemProcessResult res = processItem(facReports, i);
+            itemResults.add(res); // add it to the order's List of results
+
+
+        } // end foreach item
+
+        return resPrintout;
+
+    }// end process order
+
+    // could have this throw an error
+    public static ItemProcessResult processItem(List<FacilityReportImpl> facReps, Item item) {
+
+        int numSources = 0;
+        int quantityNeeded = item.getQuantity();
+        int q_idx = 0;
+        InventoryService is = InventoryService.getInstance();
+        int firstDay = facReps.get(0).getArrivalDay();
+        int lastDay = 999; // initialize
+        int cost = item.getValue();
+        String itemId = item.getId();
+        int itemQuantity = item.getQuantity();
+
+        // go through each facility record and
+        while (quantityNeeded > 0){
+
+            FacilityReportImpl currentReport = facReps.get(q_idx);
+            String currFacName = currentReport.getFacName();
+
+            q_idx++; numSources++;
+
+            int quantityAvail = currentReport.getNumItems();
+
+            // If the facility report can fufil the entire order
+            // The order is a success and we will want to return
+            if ( quantityNeeded < quantityAvail ) {
+
+                // Set the last day to this arrival day
+                lastDay = currentReport.getArrivalDay();
+
+                // remove the items from the facility
+                is.getItemsFromFacility(currFacName, item.getId(), quantityNeeded);
+
+                quantityNeeded = 0; // Set quantity needed to 0 to indicate a fufilled order
+            }
+
+            // Not enough inventory from this Facility Report, but we will take the items and
+            // continue on... (Remember: we are guaranteed to have enough inventory).
+            else {
+                is.getItemsFromFacility(currFacName, itemId, quantityAvail);
+                quantityNeeded -= quantityAvail;
+            }
+
+
+        } // end quantity needed loop
+
+        return new ItemProcessResult(itemId,itemQuantity,cost,numSources,firstDay,lastDay);
+
+    }
+
+    /** This is so ugly...
+     * This function sees if we can fufill the order. This needs to be run BEFORE we
+     * begin taking stuff out of inventory.
+     * @param facReps The reports for the facilities which have the inventory needed.
+     *                This should have all inventory possibly available for given item.
+     * @param item the item and quantity we are checking for.
+     * @return true if our facilities have enough inventory
+     */
+    private static boolean canFufilOrder(List<FacilityReportImpl> facReps, Item item) {
+
+        int availInv = 0;
+        int invNeeded = item.getQuantity();
+
+        // Iterate through all the facilityreports counting how much total inventory is needed
+        for (FacilityReportImpl fr : facReps){
+
+            availInv += fr.getNumItems();
 
         }
+
+        return availInv >= invNeeded;
 
     }
 

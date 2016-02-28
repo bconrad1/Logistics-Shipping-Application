@@ -14,11 +14,21 @@ public class OrderImpl implements Order {
     int time;
     String dest;
     List<Item> items;
+    String id;
 
-    OrderImpl(int time, String dest, Iterable<Item> items) throws DataValidationException {
+    OrderImpl(int time, String dest, String id, Iterable<Item> items) throws DataValidationException {
         setTime(time);
         setDest(dest);
         setItems(items);
+        setId(id);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public int getTime()  {
@@ -86,6 +96,7 @@ public class OrderImpl implements Order {
         return "OrderImpl{" +
                 "time=" + time +
                 ", dest='" + dest + '\'' +
+                ", id='" + id + '\'' +
                 ", items=" + items +
                 '}';
     }
@@ -101,7 +112,7 @@ public class OrderImpl implements Order {
             il.add(i2);
 
 
-            Order o = new OrderImpl(1, "Chicago, IL", il);
+            Order o = new OrderImpl(1, "Chicago, IL", "I AM AN ID", il);
 
             System.out.println(o);
 

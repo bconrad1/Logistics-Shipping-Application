@@ -85,7 +85,7 @@ public class OrderDataLoader {
                 }
 
                 OrderService os = OrderService.getInstance();
-                Order o = new OrderImpl(time, dest, itemsToOrder);
+                Order o = new OrderImpl(time, dest, orderId, itemsToOrder);
                 os.addOrder(orderId,o);
 
             }

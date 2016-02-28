@@ -41,6 +41,10 @@ public class ItemImpl implements Item {
         this.quantity = quantity;
     }
 
+    public int getValue(){
+        return getPrice() * getQuantity();
+    }
+
     @Override
     public String toString() {
         String str = "\t" + getId();
