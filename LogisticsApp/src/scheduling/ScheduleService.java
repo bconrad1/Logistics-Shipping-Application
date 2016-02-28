@@ -60,16 +60,17 @@ public class ScheduleService {
      * @param day day the work should be scheduled on
      * @param units how many units should be scheduled
      */
-    public void scheduleWork(String facName, int day, int units) {
+    public int scheduleWork(String facName, int day, int units) {
 
         Schedule sch = schedules.get(facName);
 
         try {
-            sch.scheduleWork(day, units);
+            return sch.scheduleWork(day, units);
 
         } catch (SchedulingConflictException e) {
             System.out.println("No Availability for " + facName + " on " + day);
             e.printStackTrace();
+            return 0;
         }
     }
 

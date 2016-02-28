@@ -11,13 +11,18 @@ import java.util.List;
 
 public class OrderProcessor {
 
-    public static void processOrderBatch(Iterable<Order> orders){
+    public static String processOrderBatch(Iterable<Order> orders){
+        String orderOutput = "";
+        int orderNumber = 0;
         for (Order o : orders) {
-            processOrder(o);
+            orderOutput += processOrder(o, orderNumber);
+            orderNumber++;
         }
+
+        return orderOutput;
     }
 
-    public static String processOrder(Order order){
+    public static String processOrder(Order order, int orderNumber){
 
         String resPrintout = "";
         String orderDest = order.getDest();
@@ -32,8 +37,6 @@ public class OrderProcessor {
         List<ItemProcessResult> itemResults = new ArrayList<>();
         // Generate facility Records for each item on the item list
         for (Item i : orderItems){
-
-            System.out.println(i);
 
             // First get a list of the facilities with each item
             List<String> facWithItem = is.getFacilitiesWithItem(i.getId());
@@ -58,42 +61,193 @@ public class OrderProcessor {
                 } catch (Throwable e) {e.printStackTrace(); }
             }
 
-            // Sort the facility reports (by arrival Day)
-            Collections.sort(facReports);
+            // If no items were found reject the item
+            if (facReports.isEmpty()) {
+                ItemProcessResult rejected = rejectedItemResult(i);
+                itemResults.add(rejected);
+            }
+            else {
+                // Sort the facility reports (by arrival Day)
+                Collections.sort(facReports);
 
-            if (!canFufilOrder(facReports,i)) return "Not enough inventory for Order: " ;
-
-            // Process the item (which lowers inventory) and get the results for formatting.
-            ItemProcessResult res = processItem(facReports, i);
-            itemResults.add(res); // add it to the order's List of results
-
+                // Process the item (which lowers inventory) and get the results for formatting.
+                ItemProcessResult res = processItem(facReports, i, order.getTime());
+                itemResults.add(res); // add it to the order's List of results
+            }
 
         } // end foreach item
 
-        return resPrintout;
+        // After going through each line of the order we now have the results of all orders
+        // We now need to format the report
+
+        return generateOrderReport(order, itemResults, orderNumber);
 
     }// end process order
 
+    private static String generateOrderReport(Order o, List<ItemProcessResult> resLines, int orderNum){
+        final String EOL = System.lineSeparator();
+
+        // Get the total cost of the invoice
+        // And summarize begin and end dates
+
+        int totalCost = 0; // change this to a dollar?
+        int firstDeliveryDay = -1;
+        int lastDeliveryDay = -1;
+
+        // Prepare the Bottom grid-like report
+        // Define the column headers
+        String itemLineDetail = "      ";
+        itemLineDetail += "Item ID        ";
+        itemLineDetail += "Quantity       ";
+        itemLineDetail += "Cost           ";
+        itemLineDetail += "Num. Sources   ";
+        itemLineDetail += "First Day      ";
+        itemLineDetail += "Last Day       " + EOL;
+
+        for (ItemProcessResult ipr : resLines) {
+            itemLineDetail += "      "; // initial indent
+
+            // collect data for the reportHead first...
+            totalCost += ipr.getCost();
+
+            if (firstDeliveryDay == -1 || ipr.getFirstDay() < firstDeliveryDay ) {
+                firstDeliveryDay = ipr.getFirstDay();
+            }
+
+            if (ipr.getLastDay() > lastDeliveryDay) {
+                lastDeliveryDay = ipr.getLastDay();
+            }
+
+            // Now, let's start building the Data line by line
+
+            // ItemID and Spacing
+            itemLineDetail += ipr.getItemId();
+            itemLineDetail += spacingHelper(ipr.getItemId());
+
+            // Quantity and Spacing
+            itemLineDetail += ipr.getQuantity();
+            itemLineDetail += spacingHelper(ipr.getQuantity());
+
+            // Cost and spacing
+            itemLineDetail += ipr.getCost();
+            itemLineDetail += spacingHelper(ipr.getCost());
+
+            // Num Sources and spacing
+            itemLineDetail += ipr.getNumSorces();
+            itemLineDetail += spacingHelper(ipr.getNumSorces());
+
+            // First Day and spacing
+            itemLineDetail += ipr.getFirstDay();
+            itemLineDetail += spacingHelper(ipr.getFirstDay());
+
+            // Last Day and Spacing
+
+            itemLineDetail += ipr.getLastDay();
+            itemLineDetail += spacingHelper(ipr.getLastDay());
+
+            itemLineDetail += EOL;
+
+        }
+
+
+        String reportHead = "";
+        String reportBody = "";
+
+        reportHead += "Order #1" + EOL;
+        reportHead += "* Order Id:      " + o.getId() + EOL; // Order Id:     <Order Id>
+        reportHead += "* Order Time:     Day " + o.getTime() + EOL; // Order Time:    Day <getTime)
+        reportHead += "* Destination:   " + o.getDest() + EOL;
+
+        List<Item> itemList = o.getItems();
+
+        reportHead += "* List of Order Items:" + EOL;
+        for (Item li : itemList){
+            reportHead += "    * Item ID: " + li.getId() + ", Quantity: " + li.getQuantity() + EOL;
+        }
+
+        reportHead += EOL + EOL;
+        // End report Head
+
+        reportBody += "Processing Solution:" + EOL;
+        reportBody += "Order Id: " + o.getId() + EOL + EOL;
+
+        reportBody += "* Destination:       " + o.getDest() + EOL;
+        reportBody += "* Total Cost :       $" + totalCost + EOL;
+        reportBody += "* 1st Delivery Day:  " + firstDeliveryDay + EOL;
+        reportBody += "* Last Delivery Day: " + lastDeliveryDay + EOL;
+        reportBody += "* Order Items:" + EOL;
+
+
+        return reportHead + reportBody + itemLineDetail;
+    }
+
+    private static String spacingHelper(int i){
+
+        int colSize = 14;
+        String spaces = " ";
+        int numSpaces;
+
+        if (i >= 100000) numSpaces = colSize-6;
+        else if (i >= 10000) numSpaces = colSize-5;
+        else if (i >= 1000) numSpaces = colSize-4;
+        else if (i >= 100) numSpaces = colSize-3;
+        else if (i >=10) numSpaces = colSize-2;
+        else numSpaces = colSize-1;
+
+        for (int j=0; j < numSpaces; j++) {
+            spaces += " ";
+        }
+        return spaces;
+    }
+
+    private static String spacingHelper(String s){
+        String spaces = " ";
+        int numSpaces = 14 - s.length();
+
+        for (int i=0; i < numSpaces; i++) {
+
+            spaces += " ";
+
+        }
+        return spaces;
+    }
+
+    public static ItemProcessResult rejectedItemResult(Item i){
+
+        String rejId = i.getId() + " - REJECTED";
+
+        return new ItemProcessResult(rejId,0,0,0,0,0,0);
+    }
+
     // could have this throw an error
-    public static ItemProcessResult processItem(List<FacilityReportImpl> facReps, Item item) {
+    public static ItemProcessResult processItem(List<FacilityReportImpl> facReps, Item item, int startDay) {
 
         int numSources = 0;
         int quantityNeeded = item.getQuantity();
         int q_idx = 0;
         InventoryService is = InventoryService.getInstance();
+        ScheduleService ss = ScheduleService.getInstance();
         int firstDay = facReps.get(0).getArrivalDay();
         int lastDay = 999; // initialize
-        int cost = item.getValue();
         String itemId = item.getId();
         int itemQuantity = item.getQuantity();
+        int backOrdered = 0;
+
+        int cost = 0;
 
         // go through each facility record and
         while (quantityNeeded > 0){
 
+            // No items left and quantity is still needed, we need to set it to backordered
+            if (q_idx > facReps.size()) {
+                backOrdered = quantityNeeded;
+                break; // break off the loop;
+            }
             FacilityReportImpl currentReport = facReps.get(q_idx);
             String currFacName = currentReport.getFacName();
 
             q_idx++; numSources++;
+            lastDay = currentReport.getArrivalDay();
 
             int quantityAvail = currentReport.getNumItems();
 
@@ -101,13 +255,16 @@ public class OrderProcessor {
             // The order is a success and we will want to return
             if ( quantityNeeded < quantityAvail ) {
 
-                // Set the last day to this arrival day
-                lastDay = currentReport.getArrivalDay();
-
                 // remove the items from the facility
                 is.getItemsFromFacility(currFacName, item.getId(), quantityNeeded);
 
+                int processingCosts = ss.scheduleWork(currFacName, startDay, quantityNeeded);
+
+                cost = processingCosts + quantityNeeded * item.getPrice();
+
                 quantityNeeded = 0; // Set quantity needed to 0 to indicate a fufilled order
+
+                // Loop breaks here.
             }
 
             // Not enough inventory from this Facility Report, but we will take the items and
@@ -120,31 +277,10 @@ public class OrderProcessor {
 
         } // end quantity needed loop
 
-        return new ItemProcessResult(itemId,itemQuantity,cost,numSources,firstDay,lastDay);
+        // Reduce the cost if theres backordered inventory
+        if (backOrdered > 0) cost -= backOrdered * item.getPrice();
 
-    }
-
-    /** This is so ugly...
-     * This function sees if we can fufill the order. This needs to be run BEFORE we
-     * begin taking stuff out of inventory.
-     * @param facReps The reports for the facilities which have the inventory needed.
-     *                This should have all inventory possibly available for given item.
-     * @param item the item and quantity we are checking for.
-     * @return true if our facilities have enough inventory
-     */
-    private static boolean canFufilOrder(List<FacilityReportImpl> facReps, Item item) {
-
-        int availInv = 0;
-        int invNeeded = item.getQuantity();
-
-        // Iterate through all the facilityreports counting how much total inventory is needed
-        for (FacilityReportImpl fr : facReps){
-
-            availInv += fr.getNumItems();
-
-        }
-
-        return availInv >= invNeeded;
+        return new ItemProcessResult(itemId,itemQuantity, backOrdered, cost, numSources,firstDay,lastDay);
 
     }
 
@@ -156,7 +292,9 @@ public class OrderProcessor {
 
         Order o = os.getOrder("TO-001");
 
-        processOrder(o);
+        String test = processOrder(o,99);
+
+        System.out.println(test);
     }
 
 

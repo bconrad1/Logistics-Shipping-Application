@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class ScheduleImpl implements Schedule {
 
-    private final int SCH_SIZE = 25;
+    private final int SCH_SIZE = 500;
     private int[] sch = new int[SCH_SIZE]; // for now.
     private int rate;
 
@@ -42,11 +42,26 @@ public class ScheduleImpl implements Schedule {
 
     }
 
-    public void scheduleWork(int day, int units) throws SchedulingConflictException{
+    public int scheduleWork(int day, int units) throws SchedulingConflictException{
+        if (units < 0 ) throw new SchedulingConflictException("cannot schedule for " + units);
+        int processingDays = 0;
+        while (units > 0){
 
-        if(!hasAvailability(day,units)) throw new SchedulingConflictException("Not enough availability");
+            int avail = getAvailability(day);
 
-        sch[day] -= units;
+            if (avail > 0){
+
+
+                sch[day] -= avail;
+                units -= avail;
+
+                day++; processingDays++;
+            }
+
+
+        }
+
+        return processingDays * 300;
 
     }
 
