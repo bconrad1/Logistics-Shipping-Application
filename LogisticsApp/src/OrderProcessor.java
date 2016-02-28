@@ -153,7 +153,7 @@ public class OrderProcessor {
         String reportHead = "";
         String reportBody = "";
 
-        reportHead += "Order #1" + EOL;
+        reportHead += "Order #" + orderNum + EOL;
         reportHead += "* Order Id:      " + o.getId() + EOL; // Order Id:     <Order Id>
         reportHead += "* Order Time:    Day " + o.getTime() + EOL; // Order Time:    Day <getTime)
         reportHead += "* Destination:   " + o.getDest() + EOL;
@@ -260,7 +260,7 @@ public class OrderProcessor {
 
                 int processingCosts = ss.scheduleWork(currFacName, startDay, quantityNeeded);
 
-                cost = processingCosts + quantityNeeded * item.getPrice();
+                cost += (processingCosts + (quantityNeeded * item.getPrice()));
 
                 quantityNeeded = 0; // Set quantity needed to 0 to indicate a fufilled order
 
@@ -272,6 +272,9 @@ public class OrderProcessor {
             else {
                 is.getItemsFromFacility(currFacName, itemId, quantityAvail);
                 quantityNeeded -= quantityAvail;
+
+                int processingCosts = ss.scheduleWork(currFacName, startDay, quantityAvail);
+                cost += (processingCosts + (quantityAvail * item.getPrice()));
             }
 
 
