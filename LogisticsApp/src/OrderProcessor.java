@@ -263,6 +263,7 @@ public class OrderProcessor {
                 int processingCosts = ss.scheduleWork(currFacName, startDay, quantityNeeded);
 
                 cost += (processingCosts + (quantityNeeded * item.getPrice()));
+                cost += currentReport.getTravelTime() * 500; // adding in travel time
 
                 quantityNeeded = 0; // Set quantity needed to 0 to indicate a fufilled order
 
@@ -277,6 +278,7 @@ public class OrderProcessor {
 
                 int processingCosts = ss.scheduleWork(currFacName, startDay, quantityAvail);
                 cost += (processingCosts + (quantityAvail * item.getPrice()));
+                cost += currentReport.getTravelTime() * 500; // adding in travel time
             }
 
 
