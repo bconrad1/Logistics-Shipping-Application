@@ -102,7 +102,8 @@ public class OrderProcessor {
         itemLineDetail += "Cost           ";
         itemLineDetail += "Num. Sources   ";
         itemLineDetail += "First Day      ";
-        itemLineDetail += "Last Day       " + EOL;
+        itemLineDetail += "Last Day       ";
+        itemLineDetail += "Backordred     " + EOL;
 
         for (ItemProcessResult ipr : resLines) {
             itemLineDetail += "      "; // initial indent
@@ -141,9 +142,12 @@ public class OrderProcessor {
             itemLineDetail += spacingHelper(ipr.getFirstDay());
 
             // Last Day and Spacing
-
             itemLineDetail += ipr.getLastDay();
             itemLineDetail += spacingHelper(ipr.getLastDay());
+
+            // backordered and Spacing
+            itemLineDetail += ipr.getBackOrdered();
+            itemLineDetail += spacingHelper(ipr.getBackOrdered());
 
             itemLineDetail += EOL;
 
