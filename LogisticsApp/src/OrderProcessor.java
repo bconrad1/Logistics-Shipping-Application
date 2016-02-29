@@ -39,6 +39,7 @@ public class OrderProcessor {
 
     }
 
+    // Number 2 Process Item ============
     public static ItemProcessResult processItemTwo(Order o, Item i){
 
         int cost = 0;
@@ -51,7 +52,8 @@ public class OrderProcessor {
 
         PriorityQueue<FacilityReport> facReports;
 
-        while (quantityNeeded >= 0) {
+        while (quantityNeeded > 0) {
+
 
             facReports = generateFacilityReports(itemId, quantityNeeded, o);
             if (facReports.isEmpty()) break; // No inventory left
@@ -69,6 +71,7 @@ public class OrderProcessor {
 
             quantityNeeded -= currentFr.getNumItems();
             quantProcessed += currentFr.getNumItems();
+            numSources++;
 
 
         }
@@ -355,6 +358,8 @@ public class OrderProcessor {
         // go through each facility record and
         while (quantityNeeded > 0){
 
+
+
             // No items left and quantity is still needed, we need to set it to backordered
             if (q_idx >= facReps.size()) {
                 backOrdered = quantityNeeded;
@@ -416,7 +421,7 @@ public class OrderProcessor {
 
         Order o = os.getOrder("TO-001");
 
-        String test = processOrderTwo(o,99);
+        String test = processOrderTwo(o, 99);
 
         System.out.println(test);
     }
