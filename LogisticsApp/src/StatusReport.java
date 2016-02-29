@@ -46,8 +46,6 @@ public class StatusReport {
         final String LN = "======";
         String report = "";
 
-        report += "SE450 Logistics App Status Report\nAuthors: Eric Janowski & Ben Conrad";
-
         report += BR + BR + LN + " Facility Details " + LN + BR + BR;
 
         ScheduleService ss = ScheduleService.getInstance();
