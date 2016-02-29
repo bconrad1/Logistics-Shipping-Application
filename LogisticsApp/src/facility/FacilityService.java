@@ -79,6 +79,10 @@ public class FacilityService {
 
     }
 
+    public int getTravelCosts(String start, String end){
+        return getDaysTraveled(start,end) * 500;
+    }
+
 
 
 

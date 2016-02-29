@@ -8,10 +8,13 @@ import scheduling.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class OrderProcessor {
 
     public static String processOrderBatch(List<Order> orders){
+
+
         String orderOutput = "";
         int orderNumber = 0;
         for (Order o : orders) {
@@ -20,6 +23,117 @@ public class OrderProcessor {
         }
 
         return orderOutput;
+    }
+
+    public static String processOrderTwo(Order o, int orderNum){
+
+        List<Item> orderItems = o.getItems();
+        List<ItemProcessResult> itemResults = new ArrayList<>();
+
+        for (Item i : orderItems ){
+            ItemProcessResult res = processItemTwo(o, i);
+            itemResults.add(res);
+        }
+
+        return generateOrderReport(o, itemResults, orderNum);
+
+    }
+
+    public static ItemProcessResult processItemTwo(Order o, Item i){
+
+        int cost = 0;
+        int quantityNeeded = i.getQuantity();
+        int quantProcessed = 0;
+        String itemId = i.getId();
+        int firstDay = 9999;
+        int lastDay = -1;
+        int numSources = 0;
+
+        PriorityQueue<FacilityReport> facReports;
+
+        while (quantityNeeded >= 0) {
+
+            facReports = generateFacilityReports(itemId, quantityNeeded, o);
+            if (facReports.isEmpty()) break; // No inventory left
+
+            FacilityReport currentFr = facReports.remove();
+            System.out.println(i);
+            System.out.println(currentFr);
+
+            cost += calculateCosts(currentFr, o, i);
+
+            int currArrivalDay = currentFr.getArrivalDay();
+            if (currArrivalDay < firstDay ) firstDay = currArrivalDay;
+            if (currArrivalDay > lastDay ) lastDay = currArrivalDay;
+
+
+            quantityNeeded -= currentFr.getNumItems();
+            quantProcessed += currentFr.getNumItems();
+
+
+        }
+
+        int backOrdered = quantityNeeded; // semantical reasons only
+
+        return new ItemProcessResult(itemId,quantProcessed,backOrdered,cost,numSources,firstDay,lastDay);
+
+
+    }
+
+    // This calculates all the costs and pulls stuff from the inventory
+    public static int calculateCosts(FacilityReport fr, Order o, Item i){
+
+        String dest = o.getDest();
+        String facName = fr.getFacName();
+
+        FacilityService fs = FacilityService.getInstance();
+        ScheduleService ss = ScheduleService.getInstance();
+        InventoryService is = InventoryService.getInstance();
+
+        int travelCosts = fs.getTravelCosts(facName, dest);
+        int processingCosts = ss.scheduleWork(facName, o.getTime(), fr.getNumItems());
+        int itemCosts = is.getItemsFromFacility(facName,i.getId(),fr.getNumItems());
+
+        return travelCosts + processingCosts + itemCosts;
+
+    }
+
+
+    public static PriorityQueue<FacilityReport> generateFacilityReports(String itemId, int quantity, Order o){
+
+        PriorityQueue<FacilityReport> frpq = new PriorityQueue<>();
+
+        int orderStartDay = o.getTime();
+        String destination = o.getDest();
+
+        InventoryService is = InventoryService.getInstance();
+        ScheduleService ss = ScheduleService.getInstance();
+        FacilityService fs = FacilityService.getInstance();
+
+        List<String> facWithItem = is.getFacilitiesWithItem(itemId);
+
+        System.out.println("FAC WITH ITEM      " + facWithItem);
+
+        for (String facName : facWithItem ) {
+
+            int itemsAvail = is.getInventoryQuantity(facName, itemId);
+            System.out.println("ITEMS AVAIL: " + itemsAvail);
+
+
+
+
+            if ( itemsAvail > quantity ) itemsAvail = quantity; // Don't offer more than needed
+
+            int endProc = ss.getProcessEndDay(facName, orderStartDay, itemsAvail);
+
+            int travelTime = fs.getDaysTraveled(facName, destination);
+
+            try {
+                FacilityReport newFacReport = new FacilityReportImpl(facName, itemsAvail, endProc, travelTime);
+                frpq.add(newFacReport);
+            } catch (Throwable e) {e.printStackTrace();}
+        }
+        return frpq;
     }
 
     public static String processOrder(Order order, int orderNumber){
@@ -300,9 +414,9 @@ public class OrderProcessor {
 
         OrderService os = OrderService.getInstance();
 
-        Order o = os.getOrder("TO-002");
+        Order o = os.getOrder("TO-001");
 
-        String test = processOrder(o,99);
+        String test = processOrderTwo(o,99);
 
         System.out.println(test);
     }

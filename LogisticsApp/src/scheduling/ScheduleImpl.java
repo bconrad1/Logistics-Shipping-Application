@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class ScheduleImpl implements Schedule {
 
-    private final int SCH_SIZE = 500;
+    private final int SCH_SIZE = 100;
     private int[] sch = new int[SCH_SIZE]; // for now.
     private int rate;
 

@@ -43,12 +43,15 @@ public class InventoryImpl implements Inventory {
      * @throws InventoryItemException if there is not enough inventory
      * @throws DataValidationException if new quantity is <0
      */
-    public void grabItem(String itemId, int quantity) throws InventoryItemException, DataValidationException {
+    public int grabItem(String itemId, int quantity) throws InventoryItemException, DataValidationException {
         if (!hasEnoughInventory(itemId, quantity)) throw new InventoryItemException("Not enough of " + itemId);
 
         int newQuantity = getInventoryQuantity(itemId) - quantity;
 
-        inv.get(itemId).setQuantity(newQuantity);
+        Item i = inv.get(itemId);
+        i.setQuantity(newQuantity);
+
+        return i.getPrice() * quantity;
     }
 
     public boolean isEmpty(){

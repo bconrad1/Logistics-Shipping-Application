@@ -45,27 +45,21 @@ public class InventoryTester {
         //printAllInventories();
 
 
-        String facName = "Phoenix, AZ";
+        String facName = "Fargo, ND";
 
         printInventory(facName);
 
         InventoryService invs = InventoryService.getInstance();
 
-        String itemId = "RX100-3";
-        final int quantity = 18;
+        System.out.println(invs.getInventoryQuantity(facName,"ABC123"));
 
-        invs.getItemsFromFacility(facName, itemId, quantity);
+        //invs.getItemsFromFacility(facName,"ABC123",25);
 
         printInventory(facName);
 
-        // Exception properly thrown here
-        //invs.getItemsFromFacility(facName, itemId, quantity);
-        //printInventory(facName);
+        System.out.println(invs.getFacilitiesWithItem("ABC123"));
 
-        List<String> testFacHaveItems = invs.getFacilitiesWithItem("ABC123");
 
-        System.out.println("\nHere are the Facilities with ABC123:");
-        testFacHaveItems.forEach(System.out::println);
 
 
     }

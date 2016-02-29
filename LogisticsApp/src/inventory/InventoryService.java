@@ -73,15 +73,16 @@ public class InventoryService {
      * @param itemId Item id to update the inventory.
      * @param quantity How much to decrement the inventory.
      */
-    public void getItemsFromFacility(String facName, String itemId, int quantity){
+    public int getItemsFromFacility(String facName, String itemId, int quantity){
 
         try {
             Inventory inv = getInventory(facName);
-            inv.grabItem(itemId, quantity);
+            return inv.grabItem(itemId, quantity);
         }
         catch (DataValidationException | InventoryItemException e) {
             System.out.println(e);
             e.printStackTrace();
+            return 0;
         }
 
     }
@@ -113,7 +114,17 @@ public class InventoryService {
 
         // Maybe use stream + collect if feeling wild
         for (String key : getFacilityNames()) {
-            if (facilityHasItem(key,itemId)) result.add(key);
+            try {
+                Inventory inv = getInventory(key);
+
+                if (inv.hasItem(itemId)) {
+                    int q = inv.getInventoryQuantity(itemId);
+
+                    if (q > 0) result.add(key);
+
+                }
+
+            }catch (Throwable e) { e.printStackTrace(); }
         }
 
         return result;
