@@ -24,15 +24,14 @@ public class OrderProcessor {
 
     public static String processOrder(Order order, int orderNumber){
 
-        String resPrintout = "";
         String orderDest = order.getDest();
         List<Item> orderItems = order.getItems();
+
         InventoryService is = InventoryService.getInstance();
         FacilityService fs = FacilityService.getInstance();
         ScheduleService ss = ScheduleService.getInstance();
 
         int startDay = order.getTime();
-
 
         List<ItemProcessResult> itemResults = new ArrayList<>();
         // Generate facility Records for each item on the item list
@@ -96,6 +95,7 @@ public class OrderProcessor {
 
         // Prepare the Bottom grid-like report
         // Define the column headers
+        // TODO: Add Backordered????
         String itemLineDetail = "      ";
         itemLineDetail += "Item ID        ";
         itemLineDetail += "Quantity       ";
@@ -251,13 +251,15 @@ public class OrderProcessor {
 
             int quantityAvail = currentReport.getNumItems();
 
-            // If the facility report can fufil the entire order
+            // If the facility report can fufill the entire order
             // The order is a success and we will want to return
             if ( quantityNeeded < quantityAvail ) {
 
                 // remove the items from the facility
                 is.getItemsFromFacility(currFacName, item.getId(), quantityNeeded);
 
+                // Get the processing costs by scheduling the service.
+                // This modifies the schedule
                 int processingCosts = ss.scheduleWork(currFacName, startDay, quantityNeeded);
 
                 cost += (processingCosts + (quantityNeeded * item.getPrice()));
