@@ -11,7 +11,7 @@ import java.util.List;
 
 public class OrderProcessor {
 
-    public static String processOrderBatch(Iterable<Order> orders){
+    public static String processOrderBatch(List<Order> orders){
         String orderOutput = "";
         int orderNumber = 0;
         for (Order o : orders) {
@@ -95,7 +95,6 @@ public class OrderProcessor {
 
         // Prepare the Bottom grid-like report
         // Define the column headers
-        // TODO: Add Backordered????
         String itemLineDetail = "      ";
         itemLineDetail += "Item ID        ";
         itemLineDetail += "Quantity       ";
@@ -243,7 +242,7 @@ public class OrderProcessor {
         while (quantityNeeded > 0){
 
             // No items left and quantity is still needed, we need to set it to backordered
-            if (q_idx > facReps.size()) {
+            if (q_idx >= facReps.size()) {
                 backOrdered = quantityNeeded;
                 break; // break off the loop;
             }
@@ -301,7 +300,7 @@ public class OrderProcessor {
 
         OrderService os = OrderService.getInstance();
 
-        Order o = os.getOrder("TO-001");
+        Order o = os.getOrder("TO-002");
 
         String test = processOrder(o,99);
 

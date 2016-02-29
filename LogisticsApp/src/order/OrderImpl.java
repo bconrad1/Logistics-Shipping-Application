@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-public class OrderImpl implements Order {
+public class OrderImpl implements Order, Comparable<Order> {
 
     int time;
     String dest;
@@ -99,6 +99,11 @@ public class OrderImpl implements Order {
                 ", id='" + id + '\'' +
                 ", items=" + items +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Order o) {
+        return Integer.compare(getTime(),o.getTime());
     }
 
     public static void main(String[] args) {

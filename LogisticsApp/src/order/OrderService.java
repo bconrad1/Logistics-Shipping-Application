@@ -1,6 +1,7 @@
 package order;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class OrderService {
 
@@ -27,6 +28,10 @@ public class OrderService {
 
     public Order getOrder(String orderId){
         return orders.get(orderId);
+    }
+
+    public Set<String> getOrderIds(){
+        return orders.keySet();
     }
 
 

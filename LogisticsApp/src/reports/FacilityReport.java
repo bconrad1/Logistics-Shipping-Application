@@ -1,6 +1,6 @@
 package reports;
 
-public interface FacilityReport {
+public interface FacilityReport extends Comparable<FacilityReport> {
 
 
 
