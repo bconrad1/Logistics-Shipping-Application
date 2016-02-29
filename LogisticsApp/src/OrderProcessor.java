@@ -12,14 +12,16 @@ import java.util.PriorityQueue;
 
 public class OrderProcessor {
 
-    public static String processOrderBatch(List<Order> orders){
+    public static String processOrderBatch(PriorityQueue<Order> orders){
 
 
         String orderOutput = "";
-        int orderNumber = 0;
-        for (Order o : orders) {
-            orderOutput += processOrder(o, orderNumber);
-            orderNumber++;
+        int orderNum = 0;
+
+        while (!orders.isEmpty()){
+            Order o = orders.remove();
+            orderOutput += processOrderTwo(o, orderNum);
+            orderNum++;
         }
 
         return orderOutput;
@@ -307,7 +309,8 @@ public class OrderProcessor {
         String spaces = " ";
         int numSpaces;
 
-        if (i >= 100000) numSpaces = colSize-6;
+        if (i >= 1000000 ) numSpaces = colSize-7;
+        else if (i >= 100000) numSpaces = colSize-6;
         else if (i >= 10000) numSpaces = colSize-5;
         else if (i >= 1000) numSpaces = colSize-4;
         else if (i >= 100) numSpaces = colSize-3;
@@ -429,7 +432,7 @@ public class OrderProcessor {
         */
 
         // Go one by one, TO-001 to TO-006
-        Order o = os.getOrder("TO-003");
+        Order o = os.getOrder("TO-006");
         String test = processOrderTwo(o, 1);
         System.out.println(test);
 

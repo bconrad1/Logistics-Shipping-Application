@@ -9,20 +9,10 @@ import java.util.HashMap;
 public class ScheduleImpl implements Schedule {
 
     private HashMap<Integer,Integer> schedule = new HashMap<>();
-
-
-    private final int SCH_SIZE = 1000;
-    private int[] sch = new int[SCH_SIZE]; // for now.
     private int rate;
 
     ScheduleImpl(int rateIn) throws DataValidationException{
         setRate(rateIn);
-
-        // initialize the schedule
-        for(int i = 0; i < SCH_SIZE; i++){
-
-            sch[i] = this.rate;
-        }
     }
 
     public int getRate() {
@@ -34,9 +24,20 @@ public class ScheduleImpl implements Schedule {
         this.rate = rate;
     }
 
+    private void setAvail(int day, int units){
+        schedule.put(day,units);
+    }
+
+    private int initDay(int day){
+        schedule.put(day, getRate());
+        return getRate();
+    }
+
     public int getAvailability(int day){
 
-        return sch[day];
+        if (schedule.containsKey(day)) return schedule.get(day);
+        else                           return initDay(day); // if we havent accessed it yet, init it.
+                                                            // initDay always returns the rate;
     }
 
     public boolean hasAvailability(int day, int units) {
@@ -47,31 +48,23 @@ public class ScheduleImpl implements Schedule {
 
     }
 
-    public int scheduleWork(int day, int units) throws SchedulingConflictException{
+    public int scheduleWork(int day, int numUnits){
+        int jobCost = (numUnits / rate) * 300;
+        while (numUnits > 0){
 
-        int processingCosts = (units / rate) * 300;
+            int availAtDay = getAvailability(day);
+            int availNeeded;
 
-        if (units < 0 ) throw new SchedulingConflictException("cannot schedule for " + units);
+            if (availAtDay > numUnits) availNeeded = numUnits;
+            else                       availNeeded = availAtDay;
 
-        int processingDays = 0;
-        while (units > 0){
+            numUnits -= availNeeded;
 
-            int avail = getAvailability(day);
+            setAvail(day, availAtDay - availNeeded);
 
-            if (avail > 0){
-
-
-                sch[day] -= avail;
-                units -= avail;
-
-                day++; processingDays++;
-            }
-
-
+            day++;
         }
-
-        return processingCosts;
-
+        return jobCost;
     }
 
     public int getProcessingEndDay(int startDay, int units){

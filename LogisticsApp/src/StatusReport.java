@@ -56,9 +56,9 @@ public class StatusReport {
             report += facilityStatus(facName);
         }
 
-        report += BR + BR + BR + BR + "===== LINKS DETAILS =====" + BR + BR;
+        //report += BR + BR + BR + BR + "===== LINKS DETAILS =====" + BR + BR;
 
-        report += generateExamples();
+        //report += generateExamples();
 
         return report;
     }
