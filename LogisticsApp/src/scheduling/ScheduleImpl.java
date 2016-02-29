@@ -43,6 +43,9 @@ public class ScheduleImpl implements Schedule {
     }
 
     public int scheduleWork(int day, int units) throws SchedulingConflictException{
+
+        int processingCosts = (units / rate) * 300;
+
         if (units < 0 ) throw new SchedulingConflictException("cannot schedule for " + units);
         int processingDays = 0;
         while (units > 0){
@@ -61,7 +64,7 @@ public class ScheduleImpl implements Schedule {
 
         }
 
-        return processingDays * 300;
+        return processingCosts;
 
     }
 
