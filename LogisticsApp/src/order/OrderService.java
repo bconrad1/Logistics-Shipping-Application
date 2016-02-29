@@ -1,6 +1,7 @@
 package order;
 
 import java.util.HashMap;
+import java.util.PriorityQueue;
 import java.util.Set;
 
 public class OrderService {
@@ -32,6 +33,19 @@ public class OrderService {
 
     public Set<String> getOrderIds(){
         return orders.keySet();
+    }
+
+    public PriorityQueue<Order> prepareOrderBatch(){
+
+        PriorityQueue<Order> opq = new PriorityQueue<>();
+
+
+        for (String key : getOrderIds()){
+            Order o = getOrder(key);
+            opq.add(o);
+        }
+
+        return opq;
     }
 
 

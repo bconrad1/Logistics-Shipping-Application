@@ -59,8 +59,8 @@ public class OrderProcessor {
             if (facReports.isEmpty()) break; // No inventory left
 
             FacilityReport currentFr = facReports.remove();
-            //System.out.println(i);
-            //System.out.println(currentFr);
+            System.out.println(i);
+            System.out.println(currentFr);
 
             cost += calculateCosts(currentFr, o, i);
 
@@ -429,7 +429,7 @@ public class OrderProcessor {
         */
 
         // Go one by one, TO-001 to TO-006
-        Order o = os.getOrder("TO-006");
+        Order o = os.getOrder("TO-003");
         String test = processOrderTwo(o, 1);
         System.out.println(test);
 

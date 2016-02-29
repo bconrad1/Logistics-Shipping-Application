@@ -4,10 +4,14 @@ import common.DataValidationException;
 import common.SchedulingConflictException;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class ScheduleImpl implements Schedule {
 
-    private final int SCH_SIZE = 100;
+    private HashMap<Integer,Integer> schedule = new HashMap<>();
+
+
+    private final int SCH_SIZE = 1000;
     private int[] sch = new int[SCH_SIZE]; // for now.
     private int rate;
 
@@ -31,6 +35,7 @@ public class ScheduleImpl implements Schedule {
     }
 
     public int getAvailability(int day){
+
         return sch[day];
     }
 
@@ -47,6 +52,7 @@ public class ScheduleImpl implements Schedule {
         int processingCosts = (units / rate) * 300;
 
         if (units < 0 ) throw new SchedulingConflictException("cannot schedule for " + units);
+
         int processingDays = 0;
         while (units > 0){
 
