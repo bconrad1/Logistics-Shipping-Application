@@ -59,8 +59,8 @@ public class OrderProcessor {
             if (facReports.isEmpty()) break; // No inventory left
 
             FacilityReport currentFr = facReports.remove();
-            System.out.println(i);
-            System.out.println(currentFr);
+            //System.out.println(i);
+            //System.out.println(currentFr);
 
             cost += calculateCosts(currentFr, o, i);
 
@@ -115,12 +115,12 @@ public class OrderProcessor {
 
         List<String> facWithItem = is.getFacilitiesWithItem(itemId);
 
-        System.out.println("FAC WITH ITEM      " + facWithItem);
+        //System.out.println("FAC WITH ITEM      " + facWithItem);
 
         for (String facName : facWithItem ) {
 
             int itemsAvail = is.getInventoryQuantity(facName, itemId);
-            System.out.println("ITEMS AVAIL: " + itemsAvail);
+            //System.out.println("ITEMS AVAIL: " + itemsAvail);
 
 
 
@@ -418,12 +418,22 @@ public class OrderProcessor {
 
 
         OrderService os = OrderService.getInstance();
+        /*
+        int i = 0;
+        for (String orderId : os.getOrderIds()){
+            Order o = os.getOrder(orderId);
+            String test = processOrderTwo(o, i++);
+            System.out.println(test);
 
-        Order o = os.getOrder("TO-001");
+        }
+        */
 
-        String test = processOrderTwo(o, 99);
-
+        // Go one by one, TO-001 to TO-006
+        Order o = os.getOrder("TO-006");
+        String test = processOrderTwo(o, 1);
         System.out.println(test);
+
+
     }
 
 
