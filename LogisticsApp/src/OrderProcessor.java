@@ -16,7 +16,7 @@ public class OrderProcessor {
 
 
         String orderOutput = "";
-        int orderNum = 0;
+        int orderNum = 1;
 
         while (!orders.isEmpty()){
             Order o = orders.remove();
@@ -61,8 +61,8 @@ public class OrderProcessor {
             if (facReports.isEmpty()) break; // No inventory left
 
             FacilityReport currentFr = facReports.remove();
-            System.out.println(i);
-            System.out.println(currentFr);
+            //System.out.println(i);
+            //System.out.println(currentFr);
 
             cost += calculateCosts(currentFr, o, i);
 
@@ -300,7 +300,7 @@ public class OrderProcessor {
         reportBody += "* Order Items:" + EOL;
 
 
-        return reportHead + reportBody + itemLineDetail;
+        return reportHead + reportBody + itemLineDetail + EOL + EOL;
     }
 
     private static String spacingHelper(int i){
