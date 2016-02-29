@@ -112,6 +112,7 @@ public class OrderProcessor {
         FacilityService fs = FacilityService.getInstance();
 
         List<String> facWithItem = is.getFacilitiesWithItem(itemId);
+        if (facWithItem.contains(destination)) facWithItem.remove(destination); // dont take items from the definition
 
         //System.out.println("FAC WITH ITEM      " + facWithItem);
 
