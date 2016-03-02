@@ -10,6 +10,9 @@ import java.util.PriorityQueue;
 
 public class OrderProcessor {
 
+    // Extra Credit (b)
+    private static final int FACLIMIT = 80;
+
     public static String processOrderBatch(PriorityQueue<Order> orders){
 
 
@@ -112,7 +115,7 @@ public class OrderProcessor {
         FacilityService fs = FacilityService.getInstance();
 
         List<String> facWithItem = is.getFacilitiesWithItem(itemId);
-        if (facWithItem.contains(destination)) facWithItem.remove(destination); // dont take items from the definition
+        if (facWithItem.contains(destination)) facWithItem.remove(destination); // don't take items from the destination
 
         //System.out.println("FAC WITH ITEM      " + facWithItem);
 
@@ -125,6 +128,7 @@ public class OrderProcessor {
 
 
             if ( itemsAvail > quantity ) itemsAvail = quantity; // Don't offer more than needed
+            if ( itemsAvail > FACLIMIT ) itemsAvail = FACLIMIT; // Extra Credit (b)
 
             int endProc = ss.getProcessEndDay(facName, orderStartDay, itemsAvail);
 
