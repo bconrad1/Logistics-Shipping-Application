@@ -312,16 +312,41 @@
             <id>SR71-D</id>
             <quantity>15</quantity>
         </item>
+    </Facility>
+
+    <Facility id="Boise, ID">
         <item>
-            <id>SN-241-L</id>
-            <quantity>28</quantity>
+            <id>PL132-C</id>
+            <quantity>7</quantity>
+        </item>
+        <item>
+            <id>CT1928</id>
+            <quantity>20</quantity>
         </item>
         <item>
             <id>XTP202</id>
-            <quantity>88</quantity>
+            <quantity>25</quantity>
         </item>
-
     </Facility>
 
 
+    <Facility id="Columbus, OH">
+        <item>
+            <id>CR2032</id>
+            <quantity>85</quantity>
+        </item>
+        <item>
+            <id>PL132-C</id>
+            <quantity>2</quantity>
+        </item>
+        <item>
+            <id>E241i</id>
+            <quantity>45</quantity>
+        </item>
+        <item>
+            <id>RX100-3</id>
+            <quantity>125</quantity>
+        </item>
+
+    </Facility>
 </InventoryContent>

@@ -92,5 +92,14 @@
 
     </Facility>
 
+	<Facility loc="Columbus, OH">
+        <rate>10</rate>
 
+    </Facility>
+	
+	<Facility loc="Boise, ID">
+        <rate>8</rate>
+
+    </Facility>
+	
 </ScheduleContent>

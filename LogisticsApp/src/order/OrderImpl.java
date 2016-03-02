@@ -65,7 +65,9 @@ public class OrderImpl implements Order, Comparable<Order> {
                 "New York City, NY",
                 "Norfolk, VA",
                 "Atlanta, GA",
-                "Miami, FL" );
+                "Miami, FL",
+                 "Boise, ID",
+                 "Columbus, OH");
 
         if (!validDests.contains(dest)) throw new DataValidationException("Invalid Destination for order:  " + dest);
 

@@ -14,7 +14,13 @@
             <City>San Francisco, CA</City>
             <Distance>808</Distance>
         </Link>
+        <Link>
+            <City>Boise, ID</City>
+            <Distance>495</Distance>
+        </Link>
     </Facility>
+
+
 
 
 
@@ -33,6 +39,10 @@
         <Link>
             <City>Los Angeles, CA</City>
             <Distance>382</Distance>
+        </Link>
+        <Link>
+            <City>Boise, ID</City>
+            <Distance>638</Distance>
         </Link>
     </Facility>
 
@@ -91,6 +101,10 @@
             <City>St. Louis, MO</City>
             <Distance>851</Distance>
         </Link>
+        <Link>
+            <City>Boise, ID</City>
+            <Distance>822</Distance>
+        </Link>
     </Facility>
 
 
@@ -133,6 +147,10 @@
         <Link>
             <City>Chicago, IL</City>
             <Distance>643</Distance>
+        </Link>
+        <Link>
+            <City>Boise, ID</City>
+            <Distance>1225</Distance>
         </Link>
     </Facility>
 
@@ -206,6 +224,10 @@
             <City>Detroit, MI</City>
             <Distance>282</Distance>
         </Link>
+        <Link>
+            <City>Columbus, OH</City>
+            <Distance>356</Distance>
+        </Link>
     </Facility>
 
 
@@ -247,6 +269,10 @@
         <Link>
             <City>Norfolk, VA</City>
             <Distance>706</Distance>
+        </Link>
+        <Link>
+            <City>Columbus, OH</City>
+            <Distance>377</Distance>
         </Link>
 
     </Facility>
@@ -361,6 +387,44 @@
         <Link>
             <City>New Orleans, LA</City>
             <Distance>864</Distance>
+        </Link>
+
+    </Facility>
+
+    <Facility Id="Boise, ID">
+        <Name>Boise, ID</Name>
+        <ProductPerDay>8</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>San Francisco, CA</City>
+            <Distance>638</Distance>
+        </Link>
+        <Link>
+            <City>Seattle, WA</City>
+            <Distance>495</Distance>
+        </Link>
+        <Link>
+            <City>Denver, CO</City>
+            <Distance>822</Distance>
+        </Link>
+        <Link>
+            <City>Fargo, ND</City>
+            <Distance>1225</Distance>
+        </Link>
+
+    </Facility>
+
+    <Facility Id="Columbus, OH">
+        <Name>Columbus, OH</Name>
+        <ProductPerDay>10</ProductPerDay>
+        <CostPerDay>300</CostPerDay>
+        <Link>
+            <City>Chicago, IL</City>
+            <Distance>356</Distance>
+        </Link>
+        <Link>
+            <City>Nashville, TN</City>
+            <Distance>377</Distance>
         </Link>
 
     </Facility>

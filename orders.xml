@@ -83,4 +83,45 @@
 
     </Order>
 
+    <Order id="TO-007">
+        <time>8</time>
+        <dest>Columbus, OH</dest>
+        <item>
+            <id>PL132-C</id>
+            <quantity>3</quantity>
+        </item>
+        <item>
+            <id>E241i</id>
+            <quantity>75</quantity>
+        </item>
+
+    </Order>
+
+    <Order id="TO-008">
+        <time>9</time>
+        <dest>Denver, CO</dest>
+        <item>
+            <id>SN-241-L</id>
+            <quantity>27</quantity>
+        </item>
+        <item>
+            <id>RL123A</id>
+            <quantity>70</quantity>
+        </item>
+    </Order>
+
+    <Order id="TO-009">
+        <time>10</time>
+        <dest>Boise, ID</dest>
+        <item>
+            <id>JBL3100</id>
+            <quantity>45</quantity>
+        </item>
+        <item>
+            <id>MM35P</id>
+            <quantity>120</quantity>
+        </item>
+
+    </Order>
+
 </OrderContent>
