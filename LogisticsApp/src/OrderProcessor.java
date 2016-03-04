@@ -1,9 +1,11 @@
+import common.DataValidationException;
 import facility.*;
 import order.*;
 import reports.*;
 import inventory.*;
 import scheduling.*;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -34,15 +36,17 @@ public class OrderProcessor {
         List<ItemProcessResult> itemResults = new ArrayList<>();
 
         for (Item i : orderItems ){
-            ItemProcessResult res = processItem(o, i);
-            itemResults.add(res);
+            try {
+                ItemProcessResult res = processItem(o, i);
+                itemResults.add(res);
+            } catch (Throwable e ) { e.printStackTrace(); }
         }
 
         return generateOrderReport(o, itemResults, orderNum);
 
     }
 
-    public static ItemProcessResult processItem(Order o, Item i){
+    public static ItemProcessResult processItem(Order o, Item i) throws DataValidationException{
 
         int cost = 0;
         int quantityNeeded = i.getQuantity();
@@ -192,8 +196,8 @@ public class OrderProcessor {
             itemLineDetail += spacingHelper(ipr.getCost());
 
             // Num Sources and spacing
-            itemLineDetail += ipr.getNumSorces();
-            itemLineDetail += spacingHelper(ipr.getNumSorces());
+            itemLineDetail += ipr.getNumSources();
+            itemLineDetail += spacingHelper(ipr.getNumSources());
 
             // First Day and spacing
             itemLineDetail += ipr.getFirstDay();
