@@ -1,6 +1,15 @@
 import order.OrderService;
 import java.io.PrintWriter;
 
+/**
+ * Logistics Application
+ *
+ * Authors: Eric Janowski & Ben Conrad
+ * Version: 3/3/2016
+ *
+ * Output is printed to mainoutput.txt in the root project directory for ease of reading.
+ */
+
 public class Main {
 
 
