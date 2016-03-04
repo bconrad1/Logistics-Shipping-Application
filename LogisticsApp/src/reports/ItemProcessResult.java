@@ -78,7 +78,8 @@ public class ItemProcessResult {
                 "SN-241-L",
                 "ZTF109",
                 "RTF110",
-                "CR2032"
+                "CR2032",
+                "MM35P"
         );
 
         if (!itemIds.contains(itemId)) throw new DataValidationException("itemId: " + itemId + " not recognized");
