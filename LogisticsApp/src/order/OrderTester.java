@@ -2,9 +2,10 @@ package order;
 
 import java.util.Arrays;
 import java.util.List;
+
 public class OrderTester {
 
-     private static final List<String> orderIds = Arrays.asList("TO-001", "TO-002", "TO-003", "TO-004",
+    private static final List<String> orderIds = Arrays.asList("TO-001", "TO-002", "TO-003", "TO-004",
             "TO-005", "TO-006");
 
     public static void main(String[] args) {
@@ -13,7 +14,7 @@ public class OrderTester {
 
     }
 
-    private static String getOrderPrintout(String orderId){
+    private static String getOrderPrintout(String orderId) {
         final String EOL = System.lineSeparator();
         OrderService os = OrderService.getInstance();
 
@@ -21,7 +22,7 @@ public class OrderTester {
         return o.toString() + EOL + EOL;
     }
 
-    private static void printAllOrders(){
+    private static void printAllOrders() {
 
         String str = "";
         for (String key : orderIds)

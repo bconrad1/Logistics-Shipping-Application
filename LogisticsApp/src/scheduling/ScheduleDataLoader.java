@@ -54,7 +54,6 @@ public class ScheduleDataLoader {
                 int rate = new Integer(elem.getElementsByTagName("rate").item(0).getTextContent());
 
 
-
                 ScheduleService schedules = ScheduleService.getInstance();
                 Schedule sch = new ScheduleImpl(rate);
                 schedules.addSchedule(facilityName, sch);

@@ -14,6 +14,17 @@ public class ItemImpl implements Item {
         setQuantity(quantity);
     }
 
+    public static void main(String[] args) {
+        try {
+            Item i = ItemFactory.build("PU238", 195);
+
+            System.out.println(i);
+        } catch (DataValidationException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public int getPrice() {
         return price;
     }
@@ -41,7 +52,7 @@ public class ItemImpl implements Item {
         this.quantity = quantity;
     }
 
-    public int getValue(){
+    public int getValue() {
         return getPrice() * getQuantity();
     }
 
@@ -60,14 +71,5 @@ public class ItemImpl implements Item {
         str += getQuantity();
 
         return str;
-    }
-
-    public static void main(String[] args) {
-        try {
-            Item i = ItemFactory.build("PU238", 195);
-
-            System.out.println(i);
-        }catch (DataValidationException e) {e.printStackTrace();}
-
     }
 }

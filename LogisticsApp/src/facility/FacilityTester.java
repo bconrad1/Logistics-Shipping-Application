@@ -14,25 +14,25 @@ public class FacilityTester {
      */
 
     //Print out the facilities using the Overidden toString for formatting.
-    public static void printFacilities(){
+    public static void printFacilities() {
 
         FacilityService fs = FacilityService.getInstance();
 
-        for(String k: fs.getFacilityNames()){
+        for (String k : fs.getFacilityNames()) {
             System.out.println(k);
         }
 
     }
 
-    public static void printAllFacilityInfo(){
+    public static void printAllFacilityInfo() {
         FacilityService fs = FacilityService.getInstance();
-        for(String k: fs.getFacilityNames()){
+        for (String k : fs.getFacilityNames()) {
             fs.getFacilityInfo(k);
         }
 
     }
 
-    public static void main(String[] args)throws DataValidationException {
+    public static void main(String[] args) throws DataValidationException {
 
         // init the facility Service in main here
         FacilityService fs = FacilityService.getInstance();

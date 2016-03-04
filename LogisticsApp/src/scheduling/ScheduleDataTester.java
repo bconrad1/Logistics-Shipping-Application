@@ -7,7 +7,7 @@ public class ScheduleDataTester {
         ScheduleService ss = ScheduleService.getInstance();
 
         // A listing of all schedules.
-        for(String key : ss.getFacilityNames()){
+        for (String key : ss.getFacilityNames()) {
 
             Schedule s = ss.getSchedule(key);
 
@@ -19,7 +19,7 @@ public class ScheduleDataTester {
 
     }
 
-    public static void printSchedule(String facName){
+    public static void printSchedule(String facName) {
 
         ScheduleService ss = ScheduleService.getInstance();
 
@@ -37,7 +37,7 @@ public class ScheduleDataTester {
 
         ScheduleService ss = ScheduleService.getInstance();
 
-        ss.scheduleWork(facName, 0,5);
+        ss.scheduleWork(facName, 0, 5);
 
         printSchedule(facName);
 

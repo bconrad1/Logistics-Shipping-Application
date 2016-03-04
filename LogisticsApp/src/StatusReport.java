@@ -4,7 +4,7 @@ import scheduling.ScheduleService;
 
 public class StatusReport {
 
-    public static String facilityStatus(String facName){
+    public static String facilityStatus(String facName) {
         final String BR = System.lineSeparator();
         String str = "" + BR;
 
@@ -19,7 +19,7 @@ public class StatusReport {
         return str;
     }
 
-    private static String generateExamples(){
+    private static String generateExamples() {
         final String BR = System.lineSeparator();
         FacilityService fs = FacilityService.getInstance();
 
@@ -37,11 +37,10 @@ public class StatusReport {
         str += "J) " + fs.displayShortestPath("Detroit, MI", "Nashville, TN") + BR;
 
 
-
         return str;
     }
 
-    public static String generateReport(){
+    public static String generateReport() {
         final String BR = System.lineSeparator();
         final String LN = "======";
         String report = "";
@@ -50,7 +49,7 @@ public class StatusReport {
 
         ScheduleService ss = ScheduleService.getInstance();
 
-        for (String facName : ss.getFacilityNames()){
+        for (String facName : ss.getFacilityNames()) {
             report += facilityStatus(facName);
         }
 

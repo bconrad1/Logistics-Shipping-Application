@@ -49,8 +49,6 @@ public class InventoryDataLoader {
                 NamedNodeMap aMap = facilities.item(i).getAttributes();
                 String facilityName = aMap.getNamedItem("id").getNodeValue();
 
-                //System.out.println(storeId);
-
                 Element elem = (Element) facilities.item(i);
 
                 List<Item> itemList = new ArrayList<>();
@@ -63,9 +61,6 @@ public class InventoryDataLoader {
 
                     String itemid = elem.getElementsByTagName("id").item(0).getTextContent();
                     int itemQ = new Integer(elem.getElementsByTagName("quantity").item(0).getTextContent());
-
-                    //System.out.println(itemid);
-                    //System.out.println(itemQ);
 
                     Item testItem = ItemFactory.build(itemid, itemQ);
                     itemList.add(testItem);

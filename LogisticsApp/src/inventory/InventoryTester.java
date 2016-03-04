@@ -22,7 +22,9 @@ public class InventoryTester {
                 }
                 System.out.println();
             }
-        } catch (DataValidationException e) {e.printStackTrace(); }
+        } catch (DataValidationException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void printInventory(String facName) {
@@ -51,15 +53,13 @@ public class InventoryTester {
 
         InventoryService invs = InventoryService.getInstance();
 
-        System.out.println(invs.getInventoryQuantity(facName,"ABC123"));
+        System.out.println(invs.getInventoryQuantity(facName, "ABC123"));
 
         //invs.getItemsFromFacility(facName,"ABC123",25);
 
         printInventory(facName);
 
         System.out.println(invs.getFacilitiesWithItem("ABC123"));
-
-
 
 
     }

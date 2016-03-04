@@ -11,12 +11,14 @@ public class FacilityService {
     private static FacilityService instance = null;
     private HashMap<String, Facility> facilities;
 
-    private FacilityService(){facilities = new HashMap<>();}
+    private FacilityService() {
+        facilities = new HashMap<>();
+    }
 
 
     //If no instance of singleton  FacilityService exists, create one. Then return it regardless. Also loads XML upon creation.
-    public static FacilityService getInstance(){
-        if(instance == null){
+    public static FacilityService getInstance() {
+        if (instance == null) {
             instance = new FacilityService();
             FacilityLoader.load("facilities.xml");
         }
@@ -24,45 +26,45 @@ public class FacilityService {
     }
 
     //Add facility to hashmap.
-    public void addFacility(String name, Facility fac)throws DataValidationException{
+    public void addFacility(String name, Facility fac) throws DataValidationException {
 
-        if(!facilities.containsKey(name)){
+        if (!facilities.containsKey(name)) {
             facilities.put(name, fac);
         }
 
     }
 
     //Return list of facilities.
-    public ArrayList<Facility> getFacilities(){
+    public ArrayList<Facility> getFacilities() {
         ArrayList<Facility> facs = new ArrayList<>();
-        for(Facility f: facilities.values()){
+        for (Facility f : facilities.values()) {
             facs.add(f);
         }
-       return facs;
+        return facs;
     }
 
     //Return single facility
-    public Set<String> getFacilityNames(){
+    public Set<String> getFacilityNames() {
         return facilities.keySet();
     }
 
-    public String getFacilityInfo(String name){
+    public String getFacilityInfo(String name) {
 
         return facilities.get(name).toString();
     }
 
     //Get the total distance for the shortest path.
-    public double getTotalDistance(String start, String end){
+    public double getTotalDistance(String start, String end) {
         return ShortestPathHandler.totalDistance(start, end, getFacilities());
     }
 
-    public int getDaysTraveled(String start, String end)throws DataValidationException{
+    public int getDaysTraveled(String start, String end) throws DataValidationException {
 
         // Get the total distance and divide by 400
         // and round up with ceil
-        Double d = Math.ceil(getTotalDistance(start,end) / 400);
+        Double d = Math.ceil(getTotalDistance(start, end) / 400);
 
-        if( d < 0){
+        if (d < 0) {
             throw new DataValidationException("Day's traveled must be greater than 0");
         }
 
@@ -72,23 +74,21 @@ public class FacilityService {
     }
 
     //Return the formatted string for shortest path.
-    public String displayShortestPath(String start, String end){
+    public String displayShortestPath(String start, String end) {
         try {
             return ShortestPathHandler.returnSP(start, end, getFacilities());
             //System.out.println(sp);
 
-        } catch (DataValidationException e) { e.printStackTrace(); return null;}
+        } catch (DataValidationException e) {
+            e.printStackTrace();
+            return null;
+        }
 
     }
 
-    public int getTravelCosts(String start, String end)throws DataValidationException{
-        return getDaysTraveled(start,end) * 500;
+    public int getTravelCosts(String start, String end) throws DataValidationException {
+        return getDaysTraveled(start, end) * 500;
     }
-
-
-
-
-
 
 
 }

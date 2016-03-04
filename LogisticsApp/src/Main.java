@@ -1,11 +1,10 @@
-import common.DataValidationException;
 import order.OrderService;
 import java.io.PrintWriter;
 
 public class Main {
 
 
-    public static void main(String[] args)throws DataValidationException {
+    public static void main(String[] args) {
         final String EOL = System.lineSeparator();
 
         String toFile = "";
@@ -23,7 +22,6 @@ public class Main {
             out.write( toFile );
             out.close();
         } catch (Throwable e) {e.printStackTrace();}
-
 
     }
 }

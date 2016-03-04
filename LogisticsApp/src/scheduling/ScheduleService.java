@@ -15,20 +15,20 @@ public class ScheduleService {
         schedules = new HashMap<>();
     }
 
-    public void addSchedule(String facName, Schedule sch) throws DataValidationException {
-
-        if (schedules.containsKey(facName)) throw new DataValidationException("Already have a schedule for " + facName);
-
-        schedules.put(facName, sch);
-
-    }
-
     public static ScheduleService getInstance() {
         if (instance == null) {
             instance = new ScheduleService();
             ScheduleDataLoader.load("schedule.xml");
         }
         return instance;
+    }
+
+    public void addSchedule(String facName, Schedule sch) throws DataValidationException {
+
+        if (schedules.containsKey(facName)) throw new DataValidationException("Already have a schedule for " + facName);
+
+        schedules.put(facName, sch);
+
     }
 
     public Schedule getSchedule(String facName) {
@@ -43,8 +43,9 @@ public class ScheduleService {
 
     /**
      * Function that returns how many days are available for a facility on a given day.
+     *
      * @param facName facility location associated with the desired schedule (e.g. Chicago, IL)
-     * @param day the day that available is needed for
+     * @param day     the day that available is needed for
      * @return how many packages are available for processing on the given day.
      */
     public int howMuchAvailabilityOnDay(String facName, int day) {
@@ -56,9 +57,10 @@ public class ScheduleService {
     /**
      * Schedules work for a facility at a given day. If there is not enough days for the amount of work
      * scheduled, an error message is printed out.
+     *
      * @param facName facility location associated with the desired schedule (e.g. Chicago, IL)
-     * @param day day the work should be scheduled on
-     * @param units how many units should be scheduled
+     * @param day     day the work should be scheduled on
+     * @param units   how many units should be scheduled
      */
     public int scheduleWork(String facName, int day, int units) {
 
@@ -74,10 +76,10 @@ public class ScheduleService {
         }
     }
 
-    public int getProcessEndDay(String facName, int startDay, int units){
+    public int getProcessEndDay(String facName, int startDay, int units) {
         Schedule s = getSchedule(facName);
 
-        return s.getProcessingEndDay(startDay,units);
+        return s.getProcessingEndDay(startDay, units);
     }
 
     public Set<String> getFacilityNames() {
@@ -88,7 +90,6 @@ public class ScheduleService {
     public String getScheduleInfo(String facName) {
         return schedules.get(facName).toString();
     }
-
 
 
 }

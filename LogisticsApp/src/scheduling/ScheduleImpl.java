@@ -8,11 +8,20 @@ import java.util.HashMap;
 
 public class ScheduleImpl implements Schedule {
 
-    private HashMap<Integer,Integer> schedule = new HashMap<>();
+    private HashMap<Integer, Integer> schedule = new HashMap<>();
     private int rate;
 
-    ScheduleImpl(int rateIn) throws DataValidationException{
+    ScheduleImpl(int rateIn) throws DataValidationException {
         setRate(rateIn);
+    }
+
+    public static void main(String[] args) {
+        try {
+            Schedule s = new ScheduleImpl(8);
+            System.out.println(s);
+        } catch (DataValidationException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getRate() {
@@ -24,20 +33,20 @@ public class ScheduleImpl implements Schedule {
         this.rate = rate;
     }
 
-    private void setAvail(int day, int units){
-        schedule.put(day,units);
+    private void setAvail(int day, int units) {
+        schedule.put(day, units);
     }
 
-    private int initDay(int day){
+    private int initDay(int day) {
         schedule.put(day, getRate());
         return getRate();
     }
 
-    public int getAvailability(int day){
+    public int getAvailability(int day) {
 
         if (schedule.containsKey(day)) return schedule.get(day);
-        else                           return initDay(day); // if we havent accessed it yet, init it.
-                                                            // initDay always returns the rate;
+        else return initDay(day); // if we havent accessed it yet, init it.
+        // initDay always returns the rate;
     }
 
     public boolean hasAvailability(int day, int units) {
@@ -48,15 +57,15 @@ public class ScheduleImpl implements Schedule {
 
     }
 
-    public int scheduleWork(int day, int numUnits){
+    public int scheduleWork(int day, int numUnits) {
         int jobCost = (numUnits / rate) * 300;
-        while (numUnits > 0){
+        while (numUnits > 0) {
 
             int availAtDay = getAvailability(day);
             int availNeeded;
 
             if (availAtDay > numUnits) availNeeded = numUnits;
-            else                       availNeeded = availAtDay;
+            else availNeeded = availAtDay;
 
             numUnits -= availNeeded;
 
@@ -67,11 +76,11 @@ public class ScheduleImpl implements Schedule {
         return jobCost;
     }
 
-    public int getProcessingEndDay(int startDay, int units){
+    public int getProcessingEndDay(int startDay, int units) {
         int day = startDay;
-        while (units > 0){
+        while (units > 0) {
             int avail = getAvailability(day);
-            if (avail > units ) break; // this is the day it will end
+            if (avail > units) break; // this is the day it will end
             units -= avail;
             day++;
         }
@@ -87,20 +96,19 @@ public class ScheduleImpl implements Schedule {
 
         str += "\t      Day  ";
 
-        for (int i=0; i <= 20; i++ ){
+        for (int i = 0; i <= 20; i++) {
             str += i + "  ";
         }
 
         str += BR + "\tAvailable  ";
 
-        for (int day = 0; day <= 20; day++ ){
+        for (int day = 0; day <= 20; day++) {
             int avail = getAvailability(day);
             if (rate >= 10) {
                 str += avail + " ";
                 if (day > 9) str += " ";
 
-            }
-            else {
+            } else {
                 str += avail + "  ";
                 if (day > 9) str += " ";
             }
@@ -108,12 +116,5 @@ public class ScheduleImpl implements Schedule {
 
 
         return str;
-    }
-
-    public static void main(String[] args) {
-        try {
-            Schedule s = new ScheduleImpl(8);
-            System.out.println(s);
-        } catch (DataValidationException e) {e.printStackTrace();}
     }
 }

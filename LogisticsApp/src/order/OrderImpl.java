@@ -23,6 +23,26 @@ public class OrderImpl implements Order, Comparable<Order> {
         setId(id);
     }
 
+    public static void main(String[] args) {
+
+        try {
+
+            Item i1 = ItemFactory.build("ABC123", 10);
+            Item i2 = ItemFactory.build("CT1928", 5);
+            List<Item> il = new ArrayList<>();
+            il.add(i1);
+            il.add(i2);
+
+
+            Order o = new OrderImpl(1, "Chicago, IL", "I AM AN ID", il);
+
+            System.out.println(o);
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
     public String getId() {
         return id;
     }
@@ -31,7 +51,7 @@ public class OrderImpl implements Order, Comparable<Order> {
         this.id = id;
     }
 
-    public int getTime()  {
+    public int getTime() {
 
         return time;
     }
@@ -48,7 +68,7 @@ public class OrderImpl implements Order, Comparable<Order> {
     }
 
     private void setDest(String dest) throws DataValidationException {
-         List<String> validDests = Arrays.asList(
+        List<String> validDestinations = Arrays.asList(
                 "Seattle, WA",
                 "San Francisco, CA",
                 "Los Angeles, CA",
@@ -66,10 +86,11 @@ public class OrderImpl implements Order, Comparable<Order> {
                 "Norfolk, VA",
                 "Atlanta, GA",
                 "Miami, FL",
-                 "Boise, ID",
-                 "Columbus, OH");
+                "Boise, ID",
+                "Columbus, OH");
 
-        if (!validDests.contains(dest)) throw new DataValidationException("Invalid Destination for order:  " + dest);
+        if (!validDestinations.contains(dest))
+            throw new DataValidationException("Invalid Destination for order:  " + dest);
 
         this.dest = dest;
     }
@@ -105,35 +126,8 @@ public class OrderImpl implements Order, Comparable<Order> {
 
     @Override
     public int compareTo(Order o) {
-        return Integer.compare(getTime(),o.getTime());
+        return Integer.compare(getTime(), o.getTime());
     }
-
-    public static void main(String[] args) {
-
-        try {
-
-            Item i1 = ItemFactory.build("ABC123", 10);
-            Item i2 = ItemFactory.build("CT1928", 5);
-            List<Item> il = new ArrayList<>();
-            il.add(i1);
-            il.add(i2);
-
-
-            Order o = new OrderImpl(1, "Chicago, IL", "I AM AN ID", il);
-
-            System.out.println(o);
-
-        } catch (Throwable e) {e.printStackTrace(); }
-    }
-
-
-
-
-
-
-
-
-
 
 
 }

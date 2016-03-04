@@ -61,14 +61,16 @@ public class OrderDataLoader {
                 List<Item> itemsToOrder = new ArrayList<>();
 
                 NodeList itemList = elem.getElementsByTagName("item");
-                for (int j = 0; j < itemList.getLength(); j++){
+                for (int j = 0; j < itemList.getLength(); j++) {
 
-                    if (itemList.item(j).getNodeType() == Node.TEXT_NODE) { continue; }
+                    if (itemList.item(j).getNodeType() == Node.TEXT_NODE) {
+                        continue;
+                    }
 
                     entryName = itemList.item(j).getNodeName();
 
                     if (!entryName.equals("item")) {
-                        System.err.println("Unexpected Node Found "+entryName);
+                        System.err.println("Unexpected Node Found " + entryName);
                         return;
                     }
 
@@ -86,7 +88,7 @@ public class OrderDataLoader {
 
                 OrderService os = OrderService.getInstance();
                 Order o = new OrderImpl(time, dest, orderId, itemsToOrder);
-                os.addOrder(orderId,o);
+                os.addOrder(orderId, o);
 
             }
 

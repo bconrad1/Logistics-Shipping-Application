@@ -1,4 +1,5 @@
 package reports;
+
 public class FacilityReportTester {
 
     public static void main(String[] args) {
@@ -6,10 +7,11 @@ public class FacilityReportTester {
         try {
             FacilityReport fr = new FacilityReportImpl("Chicago, IL", 5, 3, 4);
             System.out.println(fr);
-        }catch (Throwable e) {e.printStackTrace();}
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
 
 
-        
     }
 
 }

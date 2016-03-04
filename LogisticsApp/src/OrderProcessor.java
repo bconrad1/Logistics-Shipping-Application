@@ -4,8 +4,6 @@ import order.*;
 import reports.*;
 import inventory.*;
 import scheduling.*;
-
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -13,15 +11,16 @@ import java.util.PriorityQueue;
 public class OrderProcessor {
 
     // Extra Credit (b)
+    // FACLIMIT is a limit for the maximum amount of items 1 facility can provide.
     private static final int FACLIMIT = 80;
 
-    public static String processOrderBatch(PriorityQueue<Order> orders){
+    public static String processOrderBatch(PriorityQueue<Order> orders) {
 
 
         String orderOutput = "";
         int orderNum = 1;
 
-        while (!orders.isEmpty()){
+        while (!orders.isEmpty()) {
             Order o = orders.remove();
             orderOutput += processOrder(o, orderNum);
             orderNum++;
@@ -30,27 +29,29 @@ public class OrderProcessor {
         return orderOutput;
     }
 
-    public static String processOrder(Order o, int orderNum){
+    public static String processOrder(Order o, int orderNum) {
 
         List<Item> orderItems = o.getItems();
         List<ItemProcessResult> itemResults = new ArrayList<>();
 
-        for (Item i : orderItems ){
+        for (Item i : orderItems) {
             try {
                 ItemProcessResult res = processItem(o, i);
                 itemResults.add(res);
-            } catch (Throwable e ) { e.printStackTrace(); }
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
 
         return generateOrderReport(o, itemResults, orderNum);
 
     }
 
-    public static ItemProcessResult processItem(Order o, Item i) throws DataValidationException{
+    public static ItemProcessResult processItem(Order o, Item i) throws DataValidationException {
 
         int cost = 0;
         int quantityNeeded = i.getQuantity();
-        int quantProcessed = 0;
+        int quantityProcessed = 0;
         String itemId = i.getId();
         int firstDay = 9999;
         int lastDay = -1;
@@ -65,36 +66,33 @@ public class OrderProcessor {
             if (facReports.isEmpty()) break; // No inventory left
 
             FacilityReport currentFr = facReports.remove();
-            //System.out.println(i);
-            //System.out.println(currentFr);
 
             cost += calculateCosts(currentFr, o, i);
 
             int currArrivalDay = currentFr.getArrivalDay();
-            if (currArrivalDay < firstDay ) firstDay = currArrivalDay;
-            if (currArrivalDay > lastDay ) lastDay = currArrivalDay;
+            if (currArrivalDay < firstDay) firstDay = currArrivalDay;
+            if (currArrivalDay > lastDay) lastDay = currArrivalDay;
 
 
             quantityNeeded -= currentFr.getNumItems();
-            quantProcessed += currentFr.getNumItems();
+            quantityProcessed += currentFr.getNumItems();
             numSources++;
 
-
         }
 
-        int backOrdered = quantityNeeded; // semantical reasons only
-        if(firstDay == 9999 && lastDay == -1){
-            firstDay = 0;
-            lastDay = 0;
-        }
+        int backOrdered = quantityNeeded; // semantic reasons only
 
-        return new ItemProcessResult(itemId,quantProcessed,backOrdered,cost,numSources,firstDay,lastDay);
+        // All items were no items were available so the while loop
+        // broke early. Here, we set the default variables to 0.
+        if (firstDay == 9999) firstDay = 0;
+        if (lastDay == -1) lastDay = 0;
 
+        return new ItemProcessResult(itemId, quantityProcessed, backOrdered, cost, numSources, firstDay, lastDay);
 
     }
 
     // This calculates all the costs and pulls stuff from the inventory
-    public static int calculateCosts(FacilityReport fr, Order o, Item i)throws DataValidationException{
+    public static int calculateCosts(FacilityReport fr, Order o, Item i) throws DataValidationException {
 
         String dest = o.getDest();
         String facName = fr.getFacName();
@@ -105,13 +103,13 @@ public class OrderProcessor {
 
         int travelCosts = fs.getTravelCosts(facName, dest);
         int processingCosts = ss.scheduleWork(facName, o.getTime(), fr.getNumItems());
-        int itemCosts = is.getItemsFromFacility(facName,i.getId(),fr.getNumItems());
+        int itemCosts = is.getItemsFromFacility(facName, i.getId(), fr.getNumItems());
 
         return travelCosts + processingCosts + itemCosts;
 
     }
 
-    public static PriorityQueue<FacilityReport> generateFacilityReports(String itemId, int quantity, Order o)throws DataValidationException{
+    public static PriorityQueue<FacilityReport> generateFacilityReports(String itemId, int quantity, Order o) throws DataValidationException {
 
         PriorityQueue<FacilityReport> frpq = new PriorityQueue<>();
 
@@ -125,18 +123,13 @@ public class OrderProcessor {
         List<String> facWithItem = is.getFacilitiesWithItem(itemId);
         if (facWithItem.contains(destination)) facWithItem.remove(destination); // don't take items from the destination
 
-        //System.out.println("FAC WITH ITEM      " + facWithItem);
-
-        for (String facName : facWithItem ) {
+        for (String facName : facWithItem) {
 
             int itemsAvail = is.getInventoryQuantity(facName, itemId);
-            //System.out.println("ITEMS AVAIL: " + itemsAvail);
 
 
-
-
-            if ( itemsAvail > quantity ) itemsAvail = quantity; // Don't offer more than needed
-            if ( itemsAvail > FACLIMIT ) itemsAvail = FACLIMIT; // Extra Credit (b)
+            if (itemsAvail > quantity) itemsAvail = quantity; // Don't offer more than needed
+            if (itemsAvail > FACLIMIT) itemsAvail = FACLIMIT; // Extra Credit (b)
 
             int endProc = ss.getProcessEndDay(facName, orderStartDay, itemsAvail);
 
@@ -145,12 +138,14 @@ public class OrderProcessor {
             try {
                 FacilityReport newFacReport = new FacilityReportImpl(facName, itemsAvail, endProc, travelTime);
                 frpq.add(newFacReport);
-            } catch (Throwable e) {e.printStackTrace();}
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
         }
         return frpq;
     }
 
-    private static String generateOrderReport(Order o, List<ItemProcessResult> resLines, int orderNum){
+    private static String generateOrderReport(Order o, List<ItemProcessResult> resLines, int orderNum) {
         final String EOL = System.lineSeparator();
 
         // Get the total cost of the invoice
@@ -177,7 +172,7 @@ public class OrderProcessor {
             // collect data for the reportHead first...
             totalCost += ipr.getCost();
 
-            if (firstDeliveryDay == -1 || ipr.getFirstDay() < firstDeliveryDay ) {
+            if (firstDeliveryDay == -1 || ipr.getFirstDay() < firstDeliveryDay) {
                 firstDeliveryDay = ipr.getFirstDay();
             }
 
@@ -231,7 +226,7 @@ public class OrderProcessor {
         List<Item> itemList = o.getItems();
 
         reportHead += "* List of Order Items:" + EOL;
-        for (Item li : itemList){
+        for (Item li : itemList) {
             reportHead += "    * Item ID: " + li.getId() + ", Quantity: " + li.getQuantity() + EOL;
         }
 
@@ -251,31 +246,31 @@ public class OrderProcessor {
         return reportHead + reportBody + itemLineDetail + EOL + EOL;
     }
 
-    private static String spacingHelper(int i){
+    private static String spacingHelper(int i) {
 
         int colSize = 14;
         String spaces = " ";
         int numSpaces;
 
-        if (i >= 1000000 ) numSpaces = colSize-7;
-        else if (i >= 100000) numSpaces = colSize-6;
-        else if (i >= 10000) numSpaces = colSize-5;
-        else if (i >= 1000) numSpaces = colSize-4;
-        else if (i >= 100) numSpaces = colSize-3;
-        else if (i >=10) numSpaces = colSize-2;
-        else numSpaces = colSize-1;
+        if (i >= 1000000) numSpaces = colSize - 7;
+        else if (i >= 100000) numSpaces = colSize - 6;
+        else if (i >= 10000) numSpaces = colSize - 5;
+        else if (i >= 1000) numSpaces = colSize - 4;
+        else if (i >= 100) numSpaces = colSize - 3;
+        else if (i >= 10) numSpaces = colSize - 2;
+        else numSpaces = colSize - 1;
 
-        for (int j=0; j < numSpaces; j++) {
+        for (int j = 0; j < numSpaces; j++) {
             spaces += " ";
         }
         return spaces;
     }
 
-    private static String spacingHelper(String s){
+    private static String spacingHelper(String s) {
         String spaces = " ";
         int numSpaces = 14 - s.length();
 
-        for (int i=0; i < numSpaces; i++) {
+        for (int i = 0; i < numSpaces; i++) {
 
             spaces += " ";
 

@@ -13,7 +13,7 @@ public class FacilityImpl implements Facility {
     private ArrayList<Link> connections;
 
 
-    FacilityImpl(String facName, int costPerDay, int productPerDay, ArrayList<Link> connections )throws DataValidationException {
+    FacilityImpl(String facName, int costPerDay, int productPerDay, ArrayList<Link> connections) throws DataValidationException {
 
         setName(facName);
         setCost(costPerDay);
@@ -21,68 +21,73 @@ public class FacilityImpl implements Facility {
         setConnections(connections);
 
     }
-    private void setName(String name)throws DataValidationException {
-        this.name = name;
-    }
 
-    private void setCost(int cost)throws DataValidationException {
-        this.cost = cost;
-    }
-
-
-   public void setProductPD(int productPerDay)throws DataValidationException {
+    public void setProductPD(int productPerDay) throws DataValidationException {
+        if (productPerDay < 0) throw new DataValidationException("product per day cannot be > 0");
         this.productPD = productPerDay;
     }
 
-    private void setConnections(ArrayList<Link> connections)throws DataValidationException {
-        this.connections = connections;
-    }
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public int getCost(){
+    private void setName(String name) throws DataValidationException {
+        if (name == null) throw new DataValidationException("name cannot be null");
+        this.name = name;
+    }
+
+    public int getCost() {
         return cost;
     }
 
-    public int getProductPerDay(){
+    private void setCost(int cost) throws DataValidationException {
+        if (cost < 0) throw new DataValidationException("cost cannot be > 0");
+        this.cost = cost;
+    }
+
+    public int getProductPerDay() {
         return productPD;
     }
 
-    public void printConnections(){
-        for(Link i: connections){
+    public void printConnections() {
+        for (Link i : connections) {
             System.out.println(i.getCity());
         }
 
     }
 
-    public ArrayList<Link> getConnections(){
-       return connections;
+    public ArrayList<Link> getConnections() {
+        return connections;
 
     }
+
+    private void setConnections(ArrayList<Link> connections) throws DataValidationException {
+        if (connections == null) throw new DataValidationException("connections cannot be null");
+        this.connections = connections;
+    }
+
     @Override
     public String toString() {
         String str = "";
-        str+= name +"\n";
-        str+= "DIRECT LINKS: ";
+        str += name + "\n";
+        str += "DIRECT LINKS: ";
 
 
         //Scan the links for each city.
-        for (Link l: connections){
+        for (Link l : connections) {
 
             //8 hours * 50mph = totaldistance/400 for total days
-            double totalDays = l.getDistance()/400;
+            double totalDays = l.getDistance() / 400;
             DecimalFormat df = new DecimalFormat("#.##");
             totalDays = Double.valueOf(df.format(totalDays));
 
-            str+=l.getCity() +" ("
-                   + totalDays
-                   +") ";
+            str += l.getCity() + " ("
+                    + totalDays
+                    + ") ";
         }
-        str+="\n";
+        str += "\n";
         return str;
     }
-
 
 
 }

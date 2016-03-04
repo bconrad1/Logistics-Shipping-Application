@@ -2,6 +2,7 @@ package reports;
 
 
 import common.DataValidationException;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -77,8 +78,7 @@ public class ItemProcessResult {
                 "SN-241-L",
                 "ZTF109",
                 "RTF110",
-                "CR2032",
-                "MM35P"
+                "CR2032"
         );
 
         if (!itemIds.contains(itemId)) throw new DataValidationException("itemId: " + itemId + " not recognized");

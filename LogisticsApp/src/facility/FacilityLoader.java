@@ -12,14 +12,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-
 public class FacilityLoader {
 
 
-
-
     public static void load(String fileName) {
-
 
 
         try {
@@ -39,7 +35,6 @@ public class FacilityLoader {
             NodeList storeEntries = doc.getDocumentElement().getChildNodes();
 
 
-
             for (int i = 0; i < storeEntries.getLength(); i++) {
                 if (storeEntries.item(i).getNodeType() == Node.TEXT_NODE) {
                     continue;
@@ -52,10 +47,8 @@ public class FacilityLoader {
                 }
 
 
-
                 Element elem = (Element) storeEntries.item(i);
                 String facilityName = elem.getElementsByTagName("Name").item(0).getTextContent();
-
 
 
                 String productPerDay = elem.getElementsByTagName("ProductPerDay").item(0).getTextContent();
@@ -101,28 +94,21 @@ public class FacilityLoader {
                 int product = Integer.parseInt(productPerDay);
 
 
-
-
-
                 //Using the facilityService singleton, I create a new facility for each city.
                 FacilityService fs = FacilityService.getInstance();
-                Facility fac = new FacilityImpl(facilityName,cost,product,connections);
+                Facility fac = new FacilityImpl(facilityName, cost, product, connections);
 
                 //Then using the facade, I use the service to add the city to a collection.
-                fs.addFacility(facilityName,fac);
+                fs.addFacility(facilityName, fac);
 
 
-
-        }
-
+            }
 
 
         } catch (ParserConfigurationException | SAXException | IOException | DOMException | DataValidationException e) {
             e.printStackTrace();
         }
     }
-
-
 
 
 }
