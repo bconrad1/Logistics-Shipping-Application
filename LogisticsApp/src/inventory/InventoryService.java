@@ -126,7 +126,6 @@ public class InventoryService {
                     int q = inv.getInventoryQuantity(itemId);
 
                     if (q > 0) result.add(key);
-
                 }
 
             } catch (Throwable e) {
