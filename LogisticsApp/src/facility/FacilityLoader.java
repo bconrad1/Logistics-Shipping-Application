@@ -10,7 +10,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 
 public class FacilityLoader {
@@ -51,9 +51,6 @@ public class FacilityLoader {
                     return;
                 }
 
-
-                NamedNodeMap aMap = storeEntries.item(i).getAttributes();
-                String facilityId = aMap.getNamedItem("Id").getNodeValue();
 
 
                 Element elem = (Element) storeEntries.item(i);

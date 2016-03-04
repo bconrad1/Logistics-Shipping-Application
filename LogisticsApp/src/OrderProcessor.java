@@ -83,6 +83,10 @@ public class OrderProcessor {
         }
 
         int backOrdered = quantityNeeded; // semantical reasons only
+        if(firstDay == 9999 && lastDay == -1){
+            firstDay = 0;
+            lastDay = 0;
+        }
 
         return new ItemProcessResult(itemId,quantProcessed,backOrdered,cost,numSources,firstDay,lastDay);
 
@@ -90,7 +94,7 @@ public class OrderProcessor {
     }
 
     // This calculates all the costs and pulls stuff from the inventory
-    public static int calculateCosts(FacilityReport fr, Order o, Item i){
+    public static int calculateCosts(FacilityReport fr, Order o, Item i)throws DataValidationException{
 
         String dest = o.getDest();
         String facName = fr.getFacName();
@@ -107,7 +111,7 @@ public class OrderProcessor {
 
     }
 
-    public static PriorityQueue<FacilityReport> generateFacilityReports(String itemId, int quantity, Order o){
+    public static PriorityQueue<FacilityReport> generateFacilityReports(String itemId, int quantity, Order o)throws DataValidationException{
 
         PriorityQueue<FacilityReport> frpq = new PriorityQueue<>();
 

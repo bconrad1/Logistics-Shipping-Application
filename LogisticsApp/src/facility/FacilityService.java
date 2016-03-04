@@ -2,10 +2,7 @@ package facility;
 
 import common.DataValidationException;
 
-import java.lang.reflect.Array;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -59,11 +56,16 @@ public class FacilityService {
         return ShortestPathHandler.totalDistance(start, end, getFacilities());
     }
 
-    public int getDaysTraveled(String start, String end){
+    public int getDaysTraveled(String start, String end)throws DataValidationException{
 
         // Get the total distance and divide by 400
         // and round up with ceil
         Double d = Math.ceil(getTotalDistance(start,end) / 400);
+
+        if( d < 0){
+            throw new DataValidationException("Day's traveled must be greater than 0");
+        }
+
 
         // return the int value
         return d.intValue();
@@ -79,7 +81,7 @@ public class FacilityService {
 
     }
 
-    public int getTravelCosts(String start, String end){
+    public int getTravelCosts(String start, String end)throws DataValidationException{
         return getDaysTraveled(start,end) * 500;
     }
 
